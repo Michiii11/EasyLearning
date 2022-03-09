@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
+@font-face {
+    font-family: Header;
+    src: url(./fonts/Oxygen-Bold.ttf);
+}
+@font-face {
+    font-family: Navigation;
+    src: url(./fonts/Rubik-Italic-VariableFont_wght.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    overflow-x: hidden;
+}
+
+:root {
+    --color: white;
+    --background: black;
+}
