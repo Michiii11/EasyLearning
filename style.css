@@ -4,6 +4,7 @@
     font-family: Header;
     src: url(./fonts/Oxygen-Bold.ttf);
 }
+
 @font-face {
     font-family: Navigation;
     src: url(./fonts/Rubik-Italic-VariableFont_wght.ttf);
@@ -17,7 +18,154 @@
     overflow-x: hidden;
 }
 
+/************* MAIN *************/
 :root {
-    --color: white;
-    --background: black;
+    --background: rgb(29, 29, 29); 
+    --color: rgb(240, 240, 240);
+    --lightShadow: 20px 20px 60px #cccccc,
+        -20px -20px 60px #ffffff;
+    --darkShadow: 12px 12px 24px #161616,
+    -12px -12px 24px #242424;
+
+    --dark1: #1a1a1a;
+    --dark2: #1f1f1f;
 }
+body {
+    background-color: var(--background);
+    color: var(--color);
+    transition: all 0.2s ease;
+}
+
+/************* NAV *************/
+nav {
+    position: fixed;
+    display: flex;
+
+    width: 100vw;
+    height: 9vh;
+    box-shadow: 2px 2px 4px var(--color);
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--color);
+}
+nav i, nav h3{
+    color: var(--color);
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+nav a div i {
+    text-align: center;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    padding: 0.5vw 0 0.5vw 0;
+    transition: all 0.2s ease;
+    overflow-y: hidden;
+}
+nav a div{
+    width: fit-content; 
+    height: inherit;
+    display: flex;
+    align-items: center;
+}
+nav a{
+    height: inherit;
+    text-decoration: none;
+    color: var(--color);
+}
+nav a:nth-child(4){
+    margin-right: 35vw; 
+}
+nav a:first-of-type{
+    margin-left: 35vw;
+}
+nav a:last-of-type{
+    width: 5vw;
+}
+nav a div:hover i {
+    border-bottom: 2px solid var(--color);
+    cursor: pointer;
+    transform:translateY(-0.2rem);
+}
+#switch{
+    font-size: 2rem;
+}
+#switch:hover{
+    cursor: pointer;
+}
+#active {
+    border-bottom: 2px solid var(--color);
+}
+
+/************* CONTENT *************/
+#content{
+    margin-top: 10vh;
+}
+#input{
+    width: 60vw;
+    height: 5vh;
+    padding: 0 1vw 0 1vw;
+    margin-top: 5vh;
+    margin-left: 20vw;
+    border-radius: 0.5rem;
+    background: linear-gradient(145deg, var(--dark1), var(--dark2));
+    color: var(--color);
+    box-shadow: var(--darkShadow);
+    border-color: var(--color);
+}
+table{
+    width: 40vw;
+    margin: 10vh 30vw 10vh 30vw;
+    padding: 1vw;
+    text-align: center;
+    border-collapse: collapse;
+
+    background: linear-gradient(145deg, var(--dark1), var(--dark2));
+    box-shadow: var(--darkShadow);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+th{
+    padding: 1vh 0 1vh 0;
+    border-bottom: var(--color) 0.1rem solid;
+}
+td:first-child, th:first-child{
+    border-right: var(--color) solid 1px;
+}
+td input{
+    width: 100%;
+    height: 100%;
+    padding: 1vw 2vw 1vw 2vw;
+    background: linear-gradient(145deg, var(--dark1), var(--dark2));
+    color: var(--color);
+    border: none;
+    font-size: 1rem;
+}
+td input:hover{
+    cursor: pointer;
+}
+td input:focus{
+    border-color: var(--color);
+}
+table i:hover{
+    cursor: pointer;
+}   
+#confirm{
+    user-select: none;
+    background: linear-gradient(145deg, var(--dark1), var(--dark2));
+    color: var(--color);
+    box-shadow: var(--darkShadow);
+    border: var(--background) 1px solid;
+    width: 20vw;
+    height: 5vh;
+    margin: 1rem 40vw 5rem 40vw;
+    text-align: center;
+    padding-top: 1vh;
+    border-radius: 1rem;
+    transition: all 0.2s ease;
+}
+#confirm:hover{
+    border: var(--color) 1px solid;
+    cursor: pointer;
+}
+

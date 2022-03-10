@@ -6,8 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <script src='./script.js' defer></script>
+    <script src="tool.js"></script>
+    <script src="https://kit.fontawesome.com/557f0c19d3.js" crossorigin="anonymous"></script></head>
 </head>
 <body>
-    <main></main>
+    <nav>
+        <h3>NieLearn</h3>
+        <a onclick="loadDashboard()"><div><i id="active" class="fa-solid fa-house"></i></div></a>
+        <a onclick="addLektion()"><div><i class="fa-solid fa-plus"></i></div></a>
+        <a onclick="searchLektion()"><div><i class="fa-solid fa-magnifying-glass"></i></div></a>
+        <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>
+    </nav>
+    <div id="content"></div>
 </body>
 </html>
