@@ -20,19 +20,20 @@
 
 /************* MAIN *************/
 :root {
-    --background: rgb(29, 29, 29); 
-    --color: rgb(240, 240, 240);
-    --lightShadow: 20px 20px 60px #cccccc,
-        -20px -20px 60px #ffffff;
-    --darkShadow: 12px 12px 24px #161616,
-    -12px -12px 24px #242424;
-
-    --dark1: #1a1a1a;
-    --dark2: #1f1f1f;
+    --color1: /* rgb(29, 29, 29) */ #323741; 
+    --color2: #cfd3da;
+    --lightShadow: 5px 5px 16px #9da0a6,
+    -5px -5px 16px #ffffff;
+    --darkShadow: 5px 5px 16px #262a31,
+    -5px -5px 16px #3e4451;
+    --darkBox1: #363b46;
+    --darkBox2: #2d323b;
+    --lightBox1: #dde2e9;
+    --lightBox2: #babec4;
 }
 body {
-    background-color: var(--background);
-    color: var(--color);
+    background-color: var(--color1);
+    color: var(--color2);
     transition: all 0.2s ease;
 }
 
@@ -40,21 +41,23 @@ body {
 nav {
     position: fixed;
     display: flex;
+    overflow-y: hidden;
 
     width: 100vw;
     height: 9vh;
-    box-shadow: 2px 2px 4px var(--color);
+    background: linear-gradient(145deg, var(--darkBox1), var(--darkBox2));
+    box-shadow: 2px 2px 4px var(--color2);
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid var(--color);
+    border-bottom: 1px solid var(--color2);
 }
 nav i, nav h3{
-    color: var(--color);
+    color: var(--color2);
     font-weight: bold;
     font-size: 1.5rem;
 }
 
-nav a div i {
+nav a div i , nav a div h3{
     text-align: center;
     margin-left: 1vw;
     margin-right: 1vw;
@@ -71,19 +74,19 @@ nav a div{
 nav a{
     height: inherit;
     text-decoration: none;
-    color: var(--color);
+    color: var(--color2);
 }
 nav a:nth-child(4){
     margin-right: 35vw; 
 }
-nav a:first-of-type{
+nav a:nth-child(2){
     margin-left: 35vw;
 }
 nav a:last-of-type{
     width: 5vw;
 }
-nav a div:hover i {
-    border-bottom: 2px solid var(--color);
+nav a div:hover i , nav a div:hover h3{
+    border-bottom: 2px solid var(--color2);
     cursor: pointer;
     transform:translateY(-0.2rem);
 }
@@ -94,78 +97,170 @@ nav a div:hover i {
     cursor: pointer;
 }
 #active {
-    border-bottom: 2px solid var(--color);
+    border-bottom: 2px solid var(--color2);
 }
 
 /************* CONTENT *************/
 #content{
     margin-top: 10vh;
 }
-#input{
-    width: 60vw;
+
+#previewField{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 80vw;
+    margin-top: 5vh;
+    margin-left: 10vw;
+}
+.preview{
+    margin: 1vw;
+    background: linear-gradient(145deg, var(--darkBox1), var(--darkBox2));
+    box-shadow: var(--darkShadow);
+    width: 20vw;
+    height: 10vh;
+    border-radius: 1vw;
+    padding: 0.5vh 1vw 0.5vh 1vw;
+    border: var(--color1) 1px solid;
+    transition: 0.2s all ease;
+}
+.preview:hover{
+    cursor: pointer;
+    border: var(--color2) 1px solid;
+}
+
+
+/********** addLektion ************/
+#addLektion{
+    width: 70vw;
+    margin: 1vh 15vw 1vh 15vw;
+}
+#addLektion h1{
+    text-align: left;
+}
+#addLektion .input{
+    width: 70vw;
     height: 5vh;
     padding: 0 1vw 0 1vw;
-    margin-top: 5vh;
-    margin-left: 20vw;
+    margin-bottom: 2vh;
     border-radius: 0.5rem;
-    background: linear-gradient(145deg, var(--dark1), var(--dark2));
-    color: var(--color);
+    background: linear-gradient(145deg, var(--darkBox1), var(--darkBox2));
+    color: var(--color2);
     box-shadow: var(--darkShadow);
-    border-color: var(--color);
+    border-color: var(--color2);
 }
-table{
-    width: 40vw;
-    margin: 10vh 30vw 10vh 30vw;
+#addLektion table{
+    width: 60vw;
+    margin: 10vh 5vw 10vh 5vw;
     padding: 1vw;
     text-align: center;
     border-collapse: collapse;
 
-    background: linear-gradient(145deg, var(--dark1), var(--dark2));
+    background: linear-gradient(145deg, var(--darkBox1), var(--darkBox2));
     box-shadow: var(--darkShadow);
     border-radius: 1rem;
     overflow: hidden;
 }
-th{
+#addLektion th{
     padding: 1vh 0 1vh 0;
-    border-bottom: var(--color) 0.1rem solid;
+    border-bottom: var(--color2) 0.1rem solid;
 }
-td:first-child, th:first-child{
-    border-right: var(--color) solid 1px;
+#addLektion #definition:hover{
+    cursor: pointer;
 }
-td input{
+#addLektion td:first-child, th:first-child{
+    border-right: var(--color2) solid 1px;
+}
+#addLektion td input{
     width: 100%;
     height: 100%;
     padding: 1vw 2vw 1vw 2vw;
-    background: linear-gradient(145deg, var(--dark1), var(--dark2));
-    color: var(--color);
+    background: var(--darkShadow);
+    color: var(--color2);
     border: none;
     font-size: 1rem;
 }
-td input:hover{
+#addLektion td input:hover{
     cursor: pointer;
 }
-td input:focus{
-    border-color: var(--color);
+#addLektion td input:focus{
+    border-color: var(--color2);
 }
-table i:hover{
+#addLektion #lastRow{
+    border-top: 1px solid white;
+    padding: 1vh;
+}
+#addLektion #lastRow:hover{
+    cursor: pointer;
+}
+#addLektion table i:hover{
     cursor: pointer;
 }   
-#confirm{
+#addLektion #confirm{
     user-select: none;
-    background: linear-gradient(145deg, var(--dark1), var(--dark2));
-    color: var(--color);
+    background: linear-gradient(145deg, var(--darkBox1), var(--darkBox2));
+    color: var(--color2);
     box-shadow: var(--darkShadow);
-    border: var(--background) 1px solid;
+    border: var(--color1) 1px solid;
     width: 20vw;
     height: 5vh;
-    margin: 1rem 40vw 5rem 40vw;
     text-align: center;
     padding-top: 1vh;
     border-radius: 1rem;
+    margin: 0 25vw 0 25vw;
     transition: all 0.2s ease;
 }
-#confirm:hover{
-    border: var(--color) 1px solid;
+#addLektion #confirm:hover{
+    border: var(--color2) 1px solid;
+    cursor: pointer;
+}
+#addLektion #autoGenerate{
+    user-select: none;
+    width: 70vw;
+    height: 5vh;
+    border-radius: 0.5rem;
+    background: linear-gradient(145deg, var(--darkBox1), var(--darkBox2));
+    color: var(--color2);
+    box-shadow: var(--darkShadow);
+    border: 1px solid var(--color2);
+    padding: 1vh 0 0 1vw;
+    transition: all 0.2s ease;
+}
+#addLektion #autoGenerate:hover{
+    border: var(--color1) 1px solid;
     cursor: pointer;
 }
 
+/*********Auto Generate Table *********/
+#loadAutoGenerate{
+    width: 70vw;
+    margin: 5vh 15vw 0 15vw;
+}
+#loadAutoGenerate #confirm{
+    user-select: none;
+    background: linear-gradient(145deg, var(--darkBox1), var(--darkBox2));
+    color: var(--color2);
+    box-shadow: var(--darkShadow);
+    border: var(--color1) 1px solid;
+    width: 20vw;
+    height: 5vh;
+    text-align: center;
+    padding-top: 1vh;
+    border-radius: 1rem;
+    margin: 0 25vw 0 25vw;
+    transition: all 0.2s ease;
+}
+#loadAutoGenerate #confirm:hover{
+    border: var(--color2) 1px solid;
+    cursor: pointer;
+}
+#loadAutoGenerate textarea{
+    width: 70vw;
+    height: 5vh;
+    padding: 0 1vw 0 1vw;
+    margin-bottom: 2vh;
+    border-radius: 0.5rem;
+    background: linear-gradient(145deg, var(--darkBox1), var(--darkBox2));
+    color: var(--color2);
+    box-shadow: var(--darkShadow);
+    border-color: var(--color2);
+}
