@@ -1,3 +1,5 @@
+loadDashboard();
+
 // Function to Switch between Dark and White Mode
 function changeMode() {
     //Swap Main Colors
@@ -21,8 +23,6 @@ function changeMode() {
     document.documentElement.style.setProperty('--lightBox2', temp)
 }
 
-loadDashboard();
-
 function loadDashboard() {
     let nav = `<a onclick="loadDashboard()"><div><h3>Easy Learning</h3></div></a>
                 <a onclick="loadDashboard()"><div><i id="active" class="fa-solid fa-house"></i></div></a>
@@ -45,8 +45,6 @@ function loadDashboard() {
     document.getElementById('content').innerHTML = temp;
 }
 
-content = "";
-
 function addLektion() {
     let nav = `<a onclick="loadDashboard()"><div><h3>Easy Learning</h3></div></a>
                 <a onclick="loadDashboard()"><div><i class="fa-solid fa-house"></i></div></a>
@@ -59,7 +57,7 @@ function addLektion() {
     content += `<form><br><input class="input" id="lektionName" type="text" placeholder="Gib einen Titel ein wie 'Englisch - Kapitel 1: Welcome Back'"></form>`
     content += `<div id='autoGenerate' onclick="loadAutoGenerate()">Auto Generate Table</div>`
 
-    content += "<table><tr><th>Begriff</th><th id='definition' onclick='autoEnglisch()'>Defintion</th></tr>"
+    content += "<table><tr><th>Begriff</th><th>Defintion</th></tr>"
     content += `<tr><td class="begriff" onClick="javascript:onSelect(this)"><input value="" onclick="this.select()"></td><td class="definition"><input value="" onclick="this.select()"></td></tr>`
     content += `<tr><td colspan="2" id="lastRow" onclick="addRow()"><i class="fa-solid fa-plus"></td></tr>`
     content += "</table>";

@@ -90,8 +90,14 @@ function loadLektion(thisLektion) {
                 <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>`
     document.getElementById('nav').innerHTML = nav;
 
+    content = [["Haus", "House"], ["Maus", "Mouse"]]
     let temp = ""
-    temp += ""
+    temp += "<div><h2>Name</h2><h3>Lernen</h3><p>Karteikarten</p><p>Lernen</p><p>Antworten</p></div>"
+    temp += "<table id='tableLektion'><tr><th>Begriff</th><th id='englisch' onclick='autoEnglisch()'>Definition</th></tr>"
+    for (let i = 0; i < content[0].length; i++) {
+        temp += `<tr><td class="begriff">${content[i][0]}</td><td class="definition">${content[i][1]}</td></tr>`
+    }
+    temp += "</table>"
     document.getElementById('content').innerHTML = temp;
 }
 
