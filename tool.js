@@ -92,12 +92,12 @@ function loadLektion(thisLektion) {
 
     content = [["Haus", "House"], ["Maus", "Mouse"]]
     let temp = ""
-    temp += "<div><h2>Name</h2><h3>Lernen</h3><p>Karteikarten</p><p>Lernen</p><p>Antworten</p></div>"
+    temp += "<div id='lektionOverview'><h2>Welcome Home</h2><div><p onclick='loadKarteikarten()'>Karteikarten</p><p onclick='loadLernen()'>Lernen</p><p onclick='loadAntorten()'>Antworten</p></div>"
     temp += "<table id='tableLektion'><tr><th>Begriff</th><th id='englisch' onclick='autoEnglisch()'>Definition</th></tr>"
     for (let i = 0; i < content[0].length; i++) {
         temp += `<tr><td class="begriff">${content[i][0]}</td><td class="definition">${content[i][1]}</td></tr>`
     }
-    temp += "</table>"
+    temp += "</table></div>"
     document.getElementById('content').innerHTML = temp;
 }
 

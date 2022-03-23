@@ -75,6 +75,7 @@ nav a{
     height: inherit;
     text-decoration: none;
     color: var(--color2);
+    user-select: none;
 }
 nav a:nth-child(4){
     margin-right: 35vw; 
@@ -279,4 +280,39 @@ nav a div:hover i , nav a div:hover h3{
 }
 #tableLektion .begriff{
     border-right: var(--color2) solid 1px;
+}
+
+/*********Lektion Overview*********/
+#lektionOverview{
+    margin: 5vh 20vw 0 20vw;
+    text-align: center;
+}
+#lektionOverview h2{
+    font-size: 3rem;
+}
+#lektionOverview div{
+    display: flex;
+    justify-content: center;
+    margin: 2vh 0 10vh 0;
+}
+#lektionOverview div p{
+    margin: 1vw;
+    width: 20vw;
+    padding: 1vh 1vw 1vh 1vw;
+    font-size: 1.2rem;
+    user-select: none;
+    border-radius: 0.5rem;
+    background: linear-gradient(145deg, var(--darkBox1), var(--darkBox2));
+    color: var(--color2);
+    border: var(--color1) 1px solid;
+    box-shadow: var(--darkShadow);
+    transition: all 0.2s ease;
+}
+#lektionOverview div p:hover{
+    border: var(--color2) 1px solid;
+    cursor: pointer;
+}
+#lektionOverview table{
+    width: 40vw;
+    margin: 0 10vw 0 10vw;
 }
