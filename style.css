@@ -316,3 +316,73 @@ nav a div:hover i , nav a div:hover h3{
     width: 40vw;
     margin: 0 10vw 0 10vw;
 }
+
+/*********Lektion Übungen *********/
+#playground{
+    display: flex;
+    margin-left: 20vw;
+    margin-top: 10vh;
+    width: 80vw;
+}
+#playground i{
+    font-size: 4rem;
+    margin-top: 10vw;
+    padding: 2vw;
+}
+#playground i:hover{
+    cursor: pointer;
+}
+#card{
+    display: flex;
+    width: 50vw;
+    height: 50vh;
+    padding: 1vh 1vw 1vh 1vw;
+    user-select: none;
+    border-radius: 0.5rem;
+    background: linear-gradient(145deg, var(--darkBox1), var(--darkBox2));
+    color: var(--color2);
+    border: var(--color1) 1px solid;
+    box-shadow: var(--darkShadow);
+    transition: all 0.2s ease;
+    font-size: 5rem;
+
+    justify-content: center;
+    align-items: center;
+}
+#card:hover{
+    font-size: 5.5rem;
+    cursor: pointer;
+}
+
+#answer{
+    display: flex;
+    flex-direction: column;
+
+    width: 50vw;
+    height: 50vh;
+    padding: 1vh 1vw 1vh 1vw;
+    user-select: none;
+    border-radius: 0.5rem;
+    background: linear-gradient(145deg, var(--darkBox1), var(--darkBox2));
+    color: var(--color2);
+    border: var(--color1) 1px solid;
+    box-shadow: var(--darkShadow);
+    transition: all 0.2s ease;
+    font-size: 2rem;
+}
+#answer a{
+    padding: 1vw;
+    border-bottom: 1px solid var(--color2);
+    margin-bottom: 5vh;
+}
+#answer input{
+    padding: 1vh 1vw 1vh 1vw;
+    user-select: none;
+    border-radius: 0.5rem;
+    background: linear-gradient(145deg, var(--darkBox1), var(--darkBox2));
+    color: var(--color2);
+    border: var(--color1) 1px solid;
+    box-shadow: var(--darkShadow);
+    transition: all 0.2s ease;
+    font-size: 3rem;
+}

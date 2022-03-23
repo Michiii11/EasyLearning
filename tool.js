@@ -5,7 +5,6 @@ let lektionCount = 0;
 
 if(!localStorage["lektionSaves"]){
     lektion = ["", "", "", "", "", "", "", "", "", ""]
-    console.log(lektion);
     for(let i = 0; i < lektion.length; i++){
         lektion[i] = new Array();
     }
@@ -90,9 +89,9 @@ function loadLektion(thisLektion) {
                 <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>`
     document.getElementById('nav').innerHTML = nav;
 
-    content = [["Haus", "House"], ["Maus", "Mouse"]]
+    content = [["Haus", "House"], ["Maus", "Mouse"], ["Katze", "Cat"]]
     let temp = ""
-    temp += "<div id='lektionOverview'><h2>Welcome Home</h2><div><p onclick='loadKarteikarten()'>Karteikarten</p><p onclick='loadLernen()'>Lernen</p><p onclick='loadAntorten()'>Antworten</p></div>"
+    temp += "<div id='lektionOverview'><h2>Welcome Home</h2><div><p onclick='loadKarteikarten()'>Karteikarten</p><p onclick='loadLernen()'>Lernen</p><p onclick='loadAntworten()'>Antworten</p></div>"
     temp += "<table id='tableLektion'><tr><th>Begriff</th><th id='englisch' onclick='autoEnglisch()'>Definition</th></tr>"
     for (let i = 0; i < content[0].length; i++) {
         temp += `<tr><td class="begriff">${content[i][0]}</td><td class="definition">${content[i][1]}</td></tr>`
