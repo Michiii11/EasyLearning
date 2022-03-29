@@ -100,6 +100,12 @@ nav a div:hover i , nav a div:hover h3{
 #active {
     border-bottom: 2px solid var(--color2);
 }
+#header img{
+    width: 12vw;
+}
+#header img:hover{
+    cursor: pointer;
+}
 
 /************* CONTENT *************/
 #content{

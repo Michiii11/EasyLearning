@@ -3,12 +3,12 @@ let lektion;
 let lektionName = "";
 let lektionCount = 0;
 
-if(!localStorage["lektionSaves"]){
+if (!localStorage["lektionSaves"]) {
     lektion = ["", "", "", "", "", "", "", "", "", ""]
-    for(let i = 0; i < lektion.length; i++){
+    for (let i = 0; i < lektion.length; i++) {
         lektion[i] = new Array();
     }
-} else{
+} else {
     lektion = localStorage["lektionSaves"];
 }
 
@@ -30,42 +30,11 @@ function makeLektion(elem) {
     content += "</table>";
     content += "<div id='confirm' onclick='saveLektion()'>Save</div>"
 
-    for(let i = 0; i < document.getElementsByClassName("begriff").length; i++){
-        
+    for (let i = 0; i < document.getElementsByClassName("begriff").length; i++) {
+
     }
     lektion[lektionCount] = elem;
     document.getElementById("content").innerHTML = content;
-}
-
-function autoEnglisch() {
-    let lektionEnglisch;
-
-    fetch("https://libretranslate.de/translate", {
-            method: "POST",
-            body: JSON.stringify({
-                q: "",
-                source: "de",
-                target: "en",
-                format: "text"
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        // PARSE
-        .then((response) => {
-            console.log(response);
-            return response.json();
-        })
-        // LOGGER
-        .then((erg) => {
-            console.log(erg);
-            return erg;
-        })
-        .catch((error) => {
-            console.log('Error: ', error);
-        })
-
 }
 
 function addRow() {
@@ -81,15 +50,20 @@ function saveLektion() {
     localStorage["lektionSaves"] = lektion;
     loadLektion(lektion[lektionCount])
 }
+
 function loadLektion(thisLektion) {
-    let nav = `<a onclick="loadDashboard()"><div><h3>Easy Learning</h3></div></a>
+    let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
                 <a onclick="loadDashboard()"><div><i class="fa-solid fa-house"></i></div></a>
                 <a onclick="addLektion()"><div><i class="fa-solid fa-plus"></i></div></a>
                 <a onclick="searchLektion()"><div><i class="fa-solid fa-magnifying-glass"></i></div></a>
                 <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>`
     document.getElementById('nav').innerHTML = nav;
 
-    content = [["Haus", "House"], ["Maus", "Mouse"], ["Katze", "Cat"]]
+    content = [
+        ["Haus", "House"],
+        ["Maus", "Mouse"],
+        ["Katze", "Cat"]
+    ]
     let temp = ""
     temp += "<div id='lektionOverview'><h2>Welcome Home</h2><div><p onclick='loadKarteikarten()'>Karteikarten</p><p onclick='loadLernen()'>Lernen</p><p onclick='loadAntworten()'>Antworten</p></div>"
     temp += "<table id='tableLektion'><tr><th>Begriff</th><th id='englisch' onclick='autoEnglisch()'>Definition</th></tr>"
@@ -100,7 +74,7 @@ function loadLektion(thisLektion) {
     document.getElementById('content').innerHTML = temp;
 }
 
-function loadAutoGenerate(){
+function loadAutoGenerate() {
     let temp = `<div id='loadAutoGenerate'>`
     temp += `<textarea id="text"></textarea>`
     temp += `<div>
@@ -110,7 +84,7 @@ function loadAutoGenerate(){
         <label for="b1">Tab</label>
         <input type="radio" id="a2" name="group-a"/>
         <label for="b2">Komma</label>
-        <input type="radio" id="a3" name="group-a" />
+        <input type="radio" id="a3" name="group-a" checked/>
         <label for="b3"><input name="text" placeholder="-"></label>
     </div>`
 
@@ -121,12 +95,45 @@ function loadAutoGenerate(){
         <label for="b1">Tab</label>
         <input type="radio" id="b2" name="group-b"/>
         <label for="b2">Komma</label>
-        <input type="radio" id="b3" name="group-b" />
+        <input type="radio" id="b3" name="group-b" checked/>
         <label for="b3"><input name="text" placeholder='ENTER'></label>
     </div>`
 
-    temp += `<div id='confirm' onclick='saveLektion()'>Save</div></div>`
+    temp += `<div id='confirm' onclick="loadLektion()">Save</div></div>`
     temp += `</div>`
 
     document.getElementById('content').innerHTML = temp;
+
+    document.getElementById("text")
+        .addEventListener("keyup", function (event) {
+            event.preventDefault();
+            if (event.keyCode == 13 || event.keyCode == 189) {
+                autoGenerateTable();
+            }
+        });
+}
+
+function autoGenerateTable() {
+    let elem = document.getElementById('text').value;
+    document.getElementById('text').innerHTML = elem;
+    elem = elem.split(13);
+    for (let i = 0; i < elem.length; i++) {
+        elem[i] = elem[i].split(189)
+    }
+
+    loadAutoGenerate();
+    let temp = "<table id='tableLektion'><tr><th>Begriff</th><th id='englisch' onclick='autoEnglisch()'>Definition</th></tr>"
+    for (let i = 0; i < elem[0].length; i++) {
+        temp += `<tr><td class="begriff">${elem[i][0]}</td><td class="definition">${elem[i][1]}</td></tr>`
+    }
+    temp += "</table>"
+    document.getElementById('content').innerHTML += temp;
+
+    document.getElementById("text")
+        .addEventListener("keyup", function (event) {
+            event.preventDefault();
+            if (event.keyCode == 13 || event.keyCode == 189) {
+                autoGenerateTable();
+            }
+        });
 }

@@ -1,3 +1,5 @@
+let img1 = "./img/headerW.png"
+let img2 = "./img/headerD.png"
 loadDashboard();
 
 // Function to Switch between Dark and White Mode
@@ -21,10 +23,16 @@ function changeMode() {
     temp = getComputedStyle(document.documentElement).getPropertyValue('--darkBox2');
     document.documentElement.style.setProperty('--darkBox2', getComputedStyle(document.documentElement).getPropertyValue('--lightBox2'));
     document.documentElement.style.setProperty('--lightBox2', temp)
+
+    temp = img1;
+    img1 = img2;
+    img2 = temp;
+
+    document.getElementById('header').innerHTML = `<div><img src="${img1}"></div>`;
 }
 
 function loadDashboard() {
-    let nav = `<a onclick="loadDashboard()"><div><h3>Easy Learning</h3></div></a>
+    let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
                 <a onclick="loadDashboard()"><div><i id="active" class="fa-solid fa-house"></i></div></a>
                 <a onclick="addLektion()"><div><i class="fa-solid fa-plus"></i></div></a>
                 <a onclick="searchLektion()"><div><i class="fa-solid fa-magnifying-glass"></i></div></a>
@@ -46,7 +54,7 @@ function loadDashboard() {
 }
 
 function addLektion() {
-    let nav = `<a onclick="loadDashboard()"><div><h3>Easy Learning</h3></div></a>
+    let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
                 <a onclick="loadDashboard()"><div><i class="fa-solid fa-house"></i></div></a>
                 <a onclick="addLektion()"><div><i id="active" class="fa-solid fa-plus"></i></div></a>
                 <a onclick="searchLektion()"><div><i class="fa-solid fa-magnifying-glass"></i></div></a>
