@@ -17,11 +17,17 @@ class Lektion {
         }
 
         this.list.push(newLektion);
+        localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
+    }
+    getName(){
+        return this.list[0].name
+    }
+    getContent(){
+        return this.list[0].content
     }
     getData() {
         return this.list
     }
-
     setData(arr) {
         this.list = arr
     }

@@ -1,15 +1,11 @@
-content = [
-    ["Haus", "House"],
-    ["Maus", "Mouse"],
-    ["Katze", "Cat"]
-]
+let content = allLektions.list[0].content
 
 // Task - Karteikarten
 let row = 0;
 let collumn = 0;
 let currentCard = content[collumn][row]
 
-function loadKarteikarten() {
+function loadKarteikarten(count) {
     let playground = "";
     playground += `<div id="playground"><i onclick="skip(-1)" class="fa-solid fa-angle-left"></i>`
     playground += `<div id='card' onclick='swap()'><a>${currentCard}</a></div>`
@@ -28,11 +24,14 @@ function swap() {
 }
 function skip(sum) {
     if (collumn + sum >= 0 && collumn + sum < content.length) {
-        row = 0;
         collumn = collumn + sum;
-        currentCard = content[collumn][row]
-        loadKarteikarten();
+
+    } else{
+        collumn = 0;
     }
+    row = 0;
+    currentCard = content[collumn][row]
+    loadKarteikarten();
 }
 
 // Task - Lernen
@@ -47,16 +46,17 @@ let playground = "";
 let list = random(content);
 let wrongAnswers = new Array();
 let tempCount = 0;
+let tempContent = content;
 
-function loadAntworten() {
+function loadAntworten(count) {
     if (playground == "") {
         playground += `<div id="playground">`
-        playground += `<div id='answer'><a>${content[list[currentWord]][0]}</a>`
+        playground += `<div id='answer'><a>${tempContent[[currentWord]][0]}</a>`
         playground += `<input type="text" id="antwort" autofocus="autofocus" onfocus="this.select()" onchange="checkAnswer()">`
         playground += `</div>`
     } else {
-        playground += `<div id='answer'><a>${content[list[currentWord]][0]}</a>`
-        playground += `<a>${content[list[currentWord]][1]}</a>`
+        playground += `<div id='answer'><a>${tempContent[[currentWord]][0]}</a>`
+        playground += `<a>${tempContent[[currentWord]][1]}</a>`
         playground += `<input type="text" id="antwort" autofocus="autofocus" onfocus="this.select()" onchange="checkAnswer()">`
         playground += `</div>`
     }
@@ -66,9 +66,9 @@ function loadAntworten() {
 }
 
 function checkAnswer() {
-    if (content[list[currentWord]][1].toString().toLowerCase() == document.getElementById("antwort").value.toString().toLowerCase()) {
+    if (tempContent[[currentWord]][1].toString().toLowerCase() == document.getElementById("antwort").value.toString().toLowerCase()) {
         document.getElementById("content").innerHTML = "";
-        if (currentWord + 1 < content.length) {
+        if (currentWord + 1 < tempContent.length) {
             currentWord += 1;
             loadAntworten();
         } else {
@@ -79,15 +79,17 @@ function checkAnswer() {
                 document.getElementById("content").innerHTML = playground;
                 playground = "";
             } else {
+                tempContent = wrongAnswers;
                 playground += `<div id='playground'>`
                 playground += `<div id="answer"><a>Defeat</a></div>`
+                playground += `<div id="confirm" onclick="loadAntworten()"><a>Next Round</a></div>`
                 playground += `</div>`
                 document.getElementById("content").innerHTML = playground;
                 playground = "";
             }
         }
     } else {
-        wrongAnswers[tempCount++] = content[list[currentWord]]
+        wrongAnswers[tempCount++] = tempContent[[currentWord]]
         console.log(wrongAnswers);
         playground += `<div id="playground">`
         loadAntworten();

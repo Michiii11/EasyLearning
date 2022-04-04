@@ -45,13 +45,11 @@ function loadDashboard() {
 
     temp = "";
     temp += `<div id="previewField">`
-    temp += `<div class="preview" onclick="loadLektion()"><h1>Titel</h1><p>10 Begriffe</p></div>`
-    temp += `<div class="preview" onclick="loadLektion()"><h1>Titel</h1><p>10 Begriffe</p></div>`
-    temp += `<div class="preview" onclick="loadLektion()"><h1>Titel</h1><p>10 Begriffe</p></div>`
-    temp += `<div class="preview" onclick="loadLektion()"><h1>Titel</h1><p>10 Begriffe</p></div>`
-    temp += `<div class="preview" onclick="loadLektion()"><h1>Titel</h1><p>10 Begriffe</p></div>`
-    temp += `<div class="preview" onclick="loadLektion()"><h1>Titel</h1><p>10 Begriffe</p></div>`
-    temp += `<div class="preview" onclick="loadLektion()"><h1>Titel</h1><p>10 Begriffe</p></div>`
+
+    for(let i = 0; i < allLektions.list.length; i++){
+        temp += `<div class="preview" onclick="loadLektion(${i})"><h1>${allLektions.list[i].name}</h1><p>${allLektions.list[i].content.length} Begriffe</p></div>`
+    }
+    temp += `<div class="preview" id="previewAdd" onclick="addLektion()"><i class="fa-solid fa-plus"></i></div>`
     temp += `</div>`
 
     document.getElementById('content').innerHTML = temp;
@@ -59,7 +57,7 @@ function loadDashboard() {
 
 // Load Add Lektion
 function addLektion() {
-     nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
+    nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
                 <a onclick="loadDashboard()"><div><i class="fa-solid fa-house"></i></div></a>
                 <a onclick="addLektion()"><div><i id="active" class="fa-solid fa-plus"></i></div></a>
                 <a onclick="searchLektion()"><div><i class="fa-solid fa-magnifying-glass"></i></div></a>
@@ -71,7 +69,7 @@ function addLektion() {
     temp += `<div id='autoGenerate' onclick="loadAutoGenerate()">Auto Generate Table</div>`
 
     temp += "<table><tr><th>Begriff</th><th>Defintion</th></tr>"
-    temp += `<tr><td class="begriff"><input value="" onclick="this.select()"></td><td class="definition"><input value="" onclick="this.select()"></td></tr>`
+    temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" onclick="this.select()"></td></tr>`
     temp += `<tr><td colspan="2" id="lastRow" onclick="addRow()"><i class="fa-solid fa-plus"></td></tr>`
     temp += "</table>";
     temp += "<div id='confirm' onclick='saveLektion()'>Save</div>"
@@ -94,25 +92,25 @@ function searchLektion() {
 }
 
 // Load Lektion Menu
-function loadLektion(thisLektion) {
+function loadLektion(count) {
     let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
                   <a onclick="loadDashboard()"><div><i class="fa-solid fa-house"></i></div></a>
                   <a onclick="addLektion()"><div><i class="fa-solid fa-plus"></i></div></a>
                   <a onclick="searchLektion()"><div><i class="fa-solid fa-magnifying-glass"></i></div></a>
                   <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>`
     document.getElementById('nav').innerHTML = nav;
-  
-    content = [
-      ["Haus", "House"],
-      ["Maus", "Mouse"],
-      ["Katze", "Cat"]
-    ]
+
+    let lektionName = allLektions.list[count].name;
+    let lektionContent = allLektions.list[count].content;
+    
     temp = ""
-    temp += "<div id='lektionOverview'><h2>Welcome Home</h2><div><p onclick='loadKarteikarten()'>Karteikarten</p><p onclick='loadLernen()'>Lernen</p><p onclick='loadAntworten()'>Antworten</p></div>"
+    temp += `<div id='lektionOverview'><h2>${lektionName}</h2><div><p onclick='loadKarteikarten()'>Karteikarten</p><p onclick='loadLernen()'>Lernen</p><p onclick='loadAntworten(${count})'>Antworten</p></div>`
     temp += "<table id='tableLektion'><tr><th>Begriff</th><th id='englisch' onclick='autoEnglisch()'>Definition</th></tr>"
-    for (let i = 0; i < content[0].length; i++) {
-      temp += `<tr><td class="begriff">${content[i][0]}</td><td class="definition">${content[i][1]}</td></tr>`
+    for (let i = 0; i < lektionContent.length; i++) {
+        temp += `<tr><td class="begriff">${lektionContent[i][0]}</td><td class="definition">${lektionContent[i][1]}</td></tr>`
     }
     temp += "</table></div>"
+    content = allLektions.list[count].content
+    currentCard = content[collumn][row]
     document.getElementById('content').innerHTML = temp;
-  }
+}

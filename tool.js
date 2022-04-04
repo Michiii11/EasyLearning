@@ -6,7 +6,7 @@ let contentCount = 1;
 function addRow() {
   contentCount++;
   temp = temp.substr(0, temp.length - 150);
-  temp += `<tr><td><input value="" onclick="this.select()"></td><td><input value="" onclick="this.select()"></td></tr>`
+  temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" onclick="this.select()"></td></tr>`
   temp += `<tr><td colspan="2" id="lastRow" onclick="addRow()"><i class="fa-solid fa-plus"></td></tr>`
   temp += "</table>";
   temp += "<div id='confirm' onclick='saveLektion()'>Save</div>"
@@ -16,12 +16,11 @@ function saveLektion() {
   lektionName = document.getElementById('lektionName').value
   lektionContent = new Array(contentCount);
   for(let i = 0; i < lektionContent.length; i++){
-    console.log(document.getElementsByClassName('begriff'))
-    lektionContent[i] = [document.getElementsByClassName('begriff')[i].value][document.getElementsByClassName('definition')[i].value]
+    lektionContent[i] = [[document.getElementsByClassName("begriffV")[i].value],[document.getElementsByClassName("definitionV")[i].value]]
   }
   allLektions.addNewLektion(lektionName, lektionContent);
-  console.log(allLektions.list)
-  /*localStorage["lektionSaves"] = JSON.stringify(allLektions.list);*/
+
+  loadLektion();
 }
 
 
