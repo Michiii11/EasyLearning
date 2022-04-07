@@ -7,30 +7,28 @@ loadDashboard();
 
 // Function to Switch between Dark and White Mode
 function changeMode() {
-    // Swap Main Colors
-    let temp = getComputedStyle(document.documentElement).getPropertyValue('--color1');
-    document.documentElement.style.setProperty('--color1', getComputedStyle(document.documentElement).getPropertyValue('--color2'));
-    document.documentElement.style.setProperty('--color2', temp);
+    // Swap Colors
+    let grey1 = getComputedStyle(document.documentElement).getPropertyValue('--grey1');
+    let grey2 = getComputedStyle(document.documentElement).getPropertyValue('--grey2');
+    let grey3 = getComputedStyle(document.documentElement).getPropertyValue('--grey3');
+    let grey4 = getComputedStyle(document.documentElement).getPropertyValue('--grey4');
+    let grey5 = getComputedStyle(document.documentElement).getPropertyValue('--grey5');
+
+    document.documentElement.style.setProperty('--grey1', grey5);
+    document.documentElement.style.setProperty('--grey2', grey4);
+    document.documentElement.style.setProperty('--grey3', grey3);
+    document.documentElement.style.setProperty('--grey4', grey2);
+    document.documentElement.style.setProperty('--grey5', grey1);
 
     // Swap Shadows
     temp = getComputedStyle(document.documentElement).getPropertyValue('--lightShadow');
     document.documentElement.style.setProperty('--lightShadow', getComputedStyle(document.documentElement).getPropertyValue('--darkShadow'));
     document.documentElement.style.setProperty('--darkShadow', temp);
 
-    // Swap Box Colors 1
-    temp = getComputedStyle(document.documentElement).getPropertyValue('--darkBox1');
-    document.documentElement.style.setProperty('--darkBox1', getComputedStyle(document.documentElement).getPropertyValue('--lightBox1'));
-    document.documentElement.style.setProperty('--lightBox1', temp);
-
-    // Swap Box Colors 2
-    temp = getComputedStyle(document.documentElement).getPropertyValue('--darkBox2');
-    document.documentElement.style.setProperty('--darkBox2', getComputedStyle(document.documentElement).getPropertyValue('--lightBox2'));
-    document.documentElement.style.setProperty('--lightBox2', temp)
-
+    // Swap Header Image
     temp = img1;
     img1 = img2;
     img2 = temp;
-
     document.getElementById('header').innerHTML = `<div><img src="${img1}"></div>`;
 }
 
@@ -69,12 +67,20 @@ function addLektion() {
     temp += `<div id='autoGenerate' onclick="loadAutoGenerate()">Auto Generate Table</div>`
 
     temp += "<table><tr><th>Begriff</th><th>Defintion</th></tr>"
-    temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" onclick="this.select()"></td></tr>`
+    temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" id="lastTab" onclick="this.select()"></td></tr>`
     temp += `<tr><td colspan="2" id="lastRow" onclick="addRow()"><i class="fa-solid fa-plus"></td></tr>`
     temp += "</table>";
     temp += "<div id='confirm' onclick='saveLektion()'>Save</div>"
 
     document.getElementById('content').innerHTML = temp;
+    
+    document.getElementById("lastTab").addEventListener('keydown', function (e) {
+        if (e.keyCode == 9) {
+            addRow();
+        } else if(e.keyCode == 13){
+            saveLektion();
+        }
+    });
 }
 
 // Load Search Lektion
