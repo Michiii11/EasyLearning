@@ -101,6 +101,7 @@ nav a div:hover i , nav a div:hover h3{
     border-bottom: 2px solid var(--grey4);
 }
 #header img{
+    overflow-y: hidden;
     width: 12vw;
 }
 #header img:hover{
