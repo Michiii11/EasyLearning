@@ -10,6 +10,7 @@ function loadKarteikarten(count) {
     playground += `<div id="playground"><i onclick="skip(-1)" class="fa-solid fa-angle-left"></i>`
     playground += `<div id='card' onclick='swap()'><a>${currentCard}</a></div>`
     playground += `<i onclick="skip(1)" class="fa-solid fa-angle-right"></i></div>`
+    playground += `<button id="backToMenu" onclick="loadLektion(tempCount)">BACK</button>`
 
     document.getElementById("content").innerHTML = playground;
 }
@@ -25,12 +26,12 @@ function swap() {
 function skip(sum) {
     if (collumn + sum >= 0 && collumn + sum < content.length) {
         collumn = collumn + sum;
-
-    } else{
+    } else if(collumn.mnl i[coun].content{
         collumn = 0;
     }
     row = 0;
     currentCard = content[collumn][row]
+    
     loadKarteikarten();
 }
 
@@ -39,7 +40,7 @@ function loadLernen() {
 
 }
 
-// Task- Antworten
+// Task - Antworten
 let currentWord = 0;
 let playground = "";
 
@@ -60,6 +61,7 @@ function loadAntworten(count) {
         playground += `<input type="text" id="antwort" autofocus="autofocus" onfocus="this.select()" onchange="checkAnswer()">`
         playground += `</div>`
     }
+    playground += `<button id="backToMenu" onclick="loadLektion(tempCount-1)">BACK</button>`
 
     document.getElementById("content").innerHTML = playground;
     playground = "";
@@ -76,14 +78,18 @@ function checkAnswer() {
                 playground += `<div id='playground'>`
                 playground += `<div id="answer"><a>Finished</a></div>`
                 playground += `</div>`
+                playground += `<button id="replay" onclick="loadAntworten()">Neu Starten</button>`
+                playground += `<button id="backToMenu" onclick="loadLektion(tempCount)">BACK</button>`
                 document.getElementById("content").innerHTML = playground;
                 playground = "";
+                wrongAnswers = "";
             } else {
                 tempContent = wrongAnswers;
                 playground += `<div id='playground'>`
                 playground += `<div id="answer"><a>Defeat</a></div>`
-                playground += `<div id="confirm" onclick="loadAntworten()"><a>Next Round</a></div>`
                 playground += `</div>`
+                playground += `<button id="replay" onclick="loadAntworten()">Fortfahren</button>`
+                playground += `<button id="backToMenu" onclick="loadLektion(tempCount)">BACK</button>`
                 document.getElementById("content").innerHTML = playground;
                 playground = "";
             }

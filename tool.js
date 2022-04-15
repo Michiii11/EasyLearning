@@ -3,9 +3,8 @@ let lektionName;
 let lektionContent;
 let contentCount = 1;
 
-
-
 function addRow() {
+
     contentCount++;
     temp = `<div id="addLektion"><h1>Neue Lektion erstellen</h1>`
     temp += `<form><br><input class="input" id="lektionName" type="text" placeholder="Gib einen Titel ein wie 'Englisch - Kapitel 1: Welcome Back'"></form>`
@@ -38,7 +37,6 @@ function addRow() {
 
     document.getElementById("lastTab").addEventListener('keydown', function (e) {
         if (e.keyCode == 9) {
-            console.log("Lol");
             addRow();
         }
     });
@@ -55,7 +53,7 @@ function saveLektion() {
     }
     allLektions.addNewLektion(lektionName, lektionContent);
 
-    loadLektion();
+    loadDashboard();
 }
 
 

@@ -1,35 +1,45 @@
 var img1 = "./img/headerW.png"
 var img2 = "./img/headerD.png"
+var mode = "BLACK"
 var allLektions;
 var temp;
 
 loadDashboard();
 
+if(mode != localStorage["darkWhiteMode"]){changeMode()}
+
 // Function to Switch between Dark and White Mode
 function changeMode() {
-    // Swap Colors
-    let grey1 = getComputedStyle(document.documentElement).getPropertyValue('--grey1');
-    let grey2 = getComputedStyle(document.documentElement).getPropertyValue('--grey2');
-    let grey3 = getComputedStyle(document.documentElement).getPropertyValue('--grey3');
-    let grey4 = getComputedStyle(document.documentElement).getPropertyValue('--grey4');
-    let grey5 = getComputedStyle(document.documentElement).getPropertyValue('--grey5');
+        // Swap Colors
+        let grey1 = getComputedStyle(document.documentElement).getPropertyValue('--grey1');
+        let grey2 = getComputedStyle(document.documentElement).getPropertyValue('--grey2');
+        let grey3 = getComputedStyle(document.documentElement).getPropertyValue('--grey3');
+        let grey4 = getComputedStyle(document.documentElement).getPropertyValue('--grey4');
+        let grey5 = getComputedStyle(document.documentElement).getPropertyValue('--grey5');
 
-    document.documentElement.style.setProperty('--grey1', grey5);
-    document.documentElement.style.setProperty('--grey2', grey4);
-    document.documentElement.style.setProperty('--grey3', grey3);
-    document.documentElement.style.setProperty('--grey4', grey2);
-    document.documentElement.style.setProperty('--grey5', grey1);
+        document.documentElement.style.setProperty('--grey1', grey5);
+        document.documentElement.style.setProperty('--grey2', grey4);
+        document.documentElement.style.setProperty('--grey3', grey3);
+        document.documentElement.style.setProperty('--grey4', grey2);
+        document.documentElement.style.setProperty('--grey5', grey1);
 
-    // Swap Shadows
-    temp = getComputedStyle(document.documentElement).getPropertyValue('--lightShadow');
-    document.documentElement.style.setProperty('--lightShadow', getComputedStyle(document.documentElement).getPropertyValue('--darkShadow'));
-    document.documentElement.style.setProperty('--darkShadow', temp);
+        // Swap Shadows
+        temp = getComputedStyle(document.documentElement).getPropertyValue('--lightShadow');
+        document.documentElement.style.setProperty('--lightShadow', getComputedStyle(document.documentElement).getPropertyValue('--darkShadow'));
+        document.documentElement.style.setProperty('--darkShadow', temp);
 
-    // Swap Header Image
-    temp = img1;
-    img1 = img2;
-    img2 = temp;
-    document.getElementById('header').innerHTML = `<div><img src="${img1}"></div>`;
+        // Swap Header Image
+        temp = img1;
+        img1 = img2;
+        img2 = temp;
+        document.getElementById('header').innerHTML = `<div><img src="${img1}"></div>`;
+
+        if(mode == "BLACK"){
+            mode = "WHITE"
+        } else{
+            mode = "BLACK"
+        }
+        localStorage["darkWhiteMode"] = mode;
 }
 
 // load Dashboard
@@ -45,7 +55,9 @@ function loadDashboard() {
     temp += `<div id="previewField">`
 
     for(let i = 0; i < allLektions.list.length; i++){
-        temp += `<div class="preview" onclick="loadLektion(${i})"><h1>${allLektions.list[i].name}</h1><p>${allLektions.list[i].content.length} Begriffe</p></div>`
+        if(allLektions.list[i] != null){
+            temp += `<div class="preview" onclick="loadLektion(${i})"><h1>${allLektions.list[i].name}</h1><p>${allLektions.list[i].content.length} Begriffe</p></div>`
+        }
     }
     temp += `<div class="preview" id="previewAdd" onclick="addLektion()"><i class="fa-solid fa-plus"></i></div>`
     temp += `</div>`
@@ -107,8 +119,8 @@ function loadLektion(count) {
     document.getElementById('nav').innerHTML = nav;
 
     let lektionName = allLektions.list[count].name;
-    let lektionContent = allLektions.list[count].content;
-    
+    let lektionContent = allLektions.list[count].content;   
+     
     temp = ""
     temp += `<div id='lektionOverview'><h2>${lektionName}</h2><div><p onclick='loadKarteikarten()'>Karteikarten</p><p onclick='loadLernen()'>Lernen</p><p onclick='loadAntworten(${count})'>Antworten</p></div>`
     temp += "<table id='tableLektion'><tr><th>Begriff</th><th id='englisch' onclick='autoEnglisch()'>Definition</th></tr>"

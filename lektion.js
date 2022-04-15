@@ -19,11 +19,15 @@ class Lektion {
         this.list.push(newLektion);
         localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
     }
-    getName(){
-        return this.list[0].name
+    removeLektion(place){
+        this.list[place] = null;
+        localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
     }
-    getContent(){
-        return this.list[0].content
+    getName(place){
+        return this.list[place].name
+    }
+    getContent(place){
+        return this.list[place].content
     }
     getData() {
         return this.list
@@ -42,3 +46,5 @@ if (!localStorage["lektionSaves"]) {
     allLektions.setData(JSON.parse(localStorage["lektionSaves"]))
 }
 console.log(allLektions.list);
+
+
