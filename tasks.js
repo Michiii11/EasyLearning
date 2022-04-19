@@ -1,4 +1,4 @@
-let content = allLektions.list[0].content
+let content = allLektions.list[0].content;
 
 // Task - Karteikarten
 let row = 0;
@@ -26,8 +26,6 @@ function swap() {
 function skip(sum) {
     if (collumn + sum >= 0 && collumn + sum < content.length) {
         collumn = collumn + sum;
-    } else if(collumn.mnl i[coun].content{
-        collumn = 0;
     }
     row = 0;
     currentCard = content[collumn][row]
@@ -61,7 +59,7 @@ function loadAntworten(count) {
         playground += `<input type="text" id="antwort" autofocus="autofocus" onfocus="this.select()" onchange="checkAnswer()">`
         playground += `</div>`
     }
-    playground += `<button id="backToMenu" onclick="loadLektion(tempCount-1)">BACK</button>`
+    playground += `<button id="backToMenu" onclick="loadLektion(tempCount)">BACK</button>`
 
     document.getElementById("content").innerHTML = playground;
     playground = "";
@@ -74,6 +72,7 @@ function checkAnswer() {
             currentWord += 1;
             loadAntworten();
         } else {
+            currentWord = 0;
             if (wrongAnswers == "") {
                 playground += `<div id='playground'>`
                 playground += `<div id="answer"><a>Finished</a></div>`

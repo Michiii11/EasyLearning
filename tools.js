@@ -72,22 +72,22 @@ function makeLektion(elem) {
     elem = elem.split(char)
     lektionName = document.getElementById('lektionName');
 
-    content = `<div id="addLektion"><h1>Neue Lektion erstellen</h1>`
-    content += `<form><br><input class="input" id="lektionName" type="text" placeholder="Lektion 1">
+    let temp = `<div id="addLektion"><h1>Neue Lektion erstellen</h1>`
+    temp += `<form><br><input class="input" id="lektionName" type="text" placeholder="Lektion 1">
                <br><input class="input" type="text" onchange="makeLektion(this)" placeholder="/baum/haus/..."></form>`
-    content += "<table><tr><th>Begriff</th><th id='englisch' onclick='autoEnglisch()'>Definition</th></tr>"
+    temp += "<table><tr><th>Begriff</th><th id='englisch' onclick='autoEnglisch()'>Definition</th></tr>"
     for (let i = 1; i < elem.length; i++) {
-        content += `<tr><td class="begriff" onClick="javascript:onSelect(this)"><input value="${elem[i]}" onclick="this.select()"></td><td class="definition"><input value="" onclick="this.select()"></td></tr>`
+        temp += `<tr><td class="begriff" onClick="javascript:onSelect(this)"><input value="${elem[i]}" onclick="this.select()"></td><td class="definition"><input value="" onclick="this.select()"></td></tr>`
     }
-    content += `<tr><td colspan="2" id="lastRow" onclick="addRow()"><i class="fa-solid fa-plus"></td></tr>`
-    content += "</table>";
-    content += "<div id='confirm' onclick='saveLektion()'>Save</div>"
+    temp += `<tr><td colspan="2" id="lastRow" onclick="addRow()"><i class="fa-solid fa-plus"></td></tr>`
+    temp += "</table>";
+    temp += "<div id='confirm' onclick='saveLektion()'>Save</div>"
 
     for (let i = 0; i < document.getElementsByClassName("begriff").length; i++) {
 
     }
     lektion[lektionCount] = elem;
-    document.getElementById("content").innerHTML = content;
+    document.getElementById("content").innerHTML = temp;
 }
 
 

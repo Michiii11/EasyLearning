@@ -111,8 +111,13 @@ function searchLektion() {
 
 // Load Lektion Menu
 function loadLektion(count) {
+    list = random(content);
+    wrongAnswers = new Array();
+    tempContent = content;
+     
+
     let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
-                  <a onclick="loadDashboard()"><div><i class="fa-solid fa-house"></i></div></a>
+                  <a onclick="loadDashboard()"><div><i id="active" class="fa-solid fa-house"></i></div></a>
                   <a onclick="addLektion()"><div><i class="fa-solid fa-plus"></i></div></a>
                   <a onclick="searchLektion()"><div><i class="fa-solid fa-magnifying-glass"></i></div></a>
                   <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>`
@@ -120,15 +125,18 @@ function loadLektion(count) {
 
     let lektionName = allLektions.list[count].name;
     let lektionContent = allLektions.list[count].content;   
-     
+
+    content = allLektions.list[count].content
+    currentCard = content[collumn][row]
+
     temp = ""
     temp += `<div id='lektionOverview'><h2>${lektionName}</h2><div><p onclick='loadKarteikarten()'>Karteikarten</p><p onclick='loadLernen()'>Lernen</p><p onclick='loadAntworten(${count})'>Antworten</p></div>`
     temp += "<table id='tableLektion'><tr><th>Begriff</th><th id='englisch' onclick='autoEnglisch()'>Definition</th></tr>"
     for (let i = 0; i < lektionContent.length; i++) {
         temp += `<tr><td class="begriff">${lektionContent[i][0]}</td><td class="definition">${lektionContent[i][1]}</td></tr>`
     }
-    temp += "</table></div>"
-    content = allLektions.list[count].content
-    currentCard = content[collumn][row]
+    temp += "</table>"
+    temp += `<div><p onclick='allLektions.removeLektion(${count})}'>Entfernen</p><p onclick='addLektion()'>Bearbeiten</p></div></div>`
+    
     document.getElementById('content').innerHTML = temp;
 }
