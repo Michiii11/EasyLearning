@@ -145,11 +145,13 @@ function searchLektion() {
 
 // Load Lektion Menu
 function loadLektion(count) {
+    content = allLektions.list[count].content
     list = random(content);
+
     wrongAnswers = new Array();
     tempContent = content;
+    tempCount = count;
      
-
     let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
                   <a onclick="loadDashboard()"><div><i id="active" class="fa-solid fa-house"></i></div></a>
                   <a onclick="addLektion()"><div><i class="fa-solid fa-plus"></i></div></a>
@@ -160,7 +162,6 @@ function loadLektion(count) {
     let lektionName = allLektions.list[count].name;
     let lektionContent = allLektions.list[count].content;   
 
-    content = allLektions.list[count].content
     currentCard = content[collumn][row]
 
     temp = ""

@@ -61,15 +61,17 @@ function saveEditLektion(tempCount) {
     lektionName = document.getElementById('lektionName').value
     lektionContent = new Array(contentCount);
     for (let i = 0; i < lektionContent.length; i++) {
-        lektionContent[i] = [
-            [document.getElementsByClassName("begriffV")[i].value],
-            [document.getElementsByClassName("definitionV")[i].value]
-        ]
+        if(document.getElementsByClassName("begriffV")[0]){
+            lektionContent[i] = [
+                [document.getElementsByClassName("begriffV")[i].value],
+                [document.getElementsByClassName("definitionV")[i].value]
+            ]
+        }
     }
     allLektions.addNewLektion(lektionName, lektionContent);
     content = allLektions.list[0].content;
 
-    allLektions.removeLektion(tempCount);
+    allLektions.removeLektion(tempCount)
 
     loadDashboard();
 }
@@ -171,6 +173,7 @@ function random(temp) {
         list[i] = i;
     }
     list = list.sort(() => Math.random() - 0.5)
+
     return list;
 }
 

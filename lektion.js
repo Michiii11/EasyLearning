@@ -23,6 +23,7 @@ class Lektion {
     removeLektion(place){
         this.list.splice(place, 1);
         localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
+        console.log(`Successfully cleared ${place+1}. Lektion`)
         loadDashboard();
     }
     getName(place){
