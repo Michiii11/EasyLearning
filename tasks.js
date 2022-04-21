@@ -10,8 +10,9 @@ function loadKarteikarten(count) {
     playground += `<div id="playground"><i onclick="skip(-1)" class="fa-solid fa-angle-left"></i>`
     playground += `<div id='card' onclick='swap()'><a>${currentCard}</a></div>`
     playground += `<i onclick="skip(1)" class="fa-solid fa-angle-right"></i></div>`
-    playground += `<button id="backToMenu" onclick="loadLektion(tempCount)">BACK</button>`
-
+    playground += `<div id="achievment"><a>Fortschritt: ${collumn+1}/${content.length}</a></div>`
+    playground += `<a id="backToMenu" onclick="loadLektion(tempCount)">BACK</a>`
+ 
     document.getElementById("content").innerHTML = playground;
 }
 function swap() {
@@ -59,7 +60,7 @@ function loadAntworten(count) {
         playground += `<input type="text" id="antwort" autofocus="autofocus" onfocus="this.select()" onchange="checkAnswer()">`
         playground += `</div>`
     }
-    playground += `<button id="backToMenu" onclick="loadLektion(tempCount)">BACK</button>`
+    playground += `<a id="backToMenu" onclick="loadLektion(tempCount)">BACK</a>`
 
     document.getElementById("content").innerHTML = playground;
     playground = "";

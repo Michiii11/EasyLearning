@@ -59,7 +59,7 @@ function loadDashboard() {
             temp += `<div class="preview" onclick="loadLektion(${i})"><h1>${allLektions.list[i].name}</h1><p>${allLektions.list[i].content.length} Begriffe</p></div>`
         }
     }
-    temp += `<div class="preview" id="previewAdd" onclick="addLektion()"><i class="fa-solid fa-plus"></i></div>`
+    temp += `<div class="preview" id="previewAdd" onclick="addLektion();"><i class="fa-solid fa-plus"></i></div>`
     temp += `</div>`
 
     document.getElementById('content').innerHTML = temp;
@@ -74,8 +74,8 @@ function addLektion() {
                 <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>`
     document.getElementById('nav').innerHTML = nav;
 
-    temp = `<div id="addLektion"><h1>Neue Lektion erstellen</h1>`
-    temp += `<form><br><input class="input" id="lektionName" type="text" placeholder="Gib einen Titel ein wie 'Englisch - Kapitel 1: Welcome Back'"></form>`
+    temp = `<div id="addLektion"><h1 id="name">Neue Lektion erstellen</h1>`
+    temp += `<br><input class="input" id="lektionName" type="text" placeholder="Gib einen Titel ein wie 'Englisch - Kapitel 1: Welcome Back'" autofocus>`
     temp += `<div id='autoGenerate' onclick="loadAutoGenerate()">Auto Generate Table</div>`
 
     temp += "<table><tr><th>Begriff</th><th>Defintion</th></tr>"
@@ -89,11 +89,45 @@ function addLektion() {
     document.getElementById("lastTab").addEventListener('keydown', function (e) {
         if (e.keyCode == 9) {
             addRow();
-        } else if(e.keyCode == 13){
-            saveLektion();
-        }
+        } 
     });
 }
+// Load Edit Lektion
+function editLektion(count, temp){
+    let lektionName = allLektions.list[count].name;
+    let lektionContent = allLektions.list[count].content;  
+
+    if(temp == null){
+        for(let i = 0; i < lektionContent.length - 1; i++){
+            addRow();
+        }
+    }
+
+    document.getElementById("lektionName").value = lektionName;
+    for(let i = 0; i < lektionContent.length; i++){
+        document.getElementsByClassName("begriffV")[i].value = lektionContent[i][0]
+        document.getElementsByClassName("definitionV")[i].value = lektionContent[i][1]
+    }
+
+    let tempCont = document.getElementById('content').innerHTML
+
+    tempCont = (tempCont.substring(0, tempCont.length-52));
+    document.getElementById('content').innerHTML = tempCont;
+    document.getElementById('addLektion').innerHTML += `<div id='confirm' onclick='saveEditLektion(${count})'>Save</div>`
+
+    document.getElementById("lektionName").value = lektionName;
+    for(let i = 0; i < lektionContent.length; i++){
+        document.getElementsByClassName("begriffV")[i].value = lektionContent[i][0]
+        document.getElementsByClassName("definitionV")[i].value = lektionContent[i][1]
+    }
+    document.getElementById("lastTab").addEventListener('keydown', function (e) {
+        if (e.keyCode == 9) {
+            addRow();
+            editLektion(count, 1)
+        } 
+    });
+}
+
 
 // Load Search Lektion
 function searchLektion() {
@@ -136,7 +170,7 @@ function loadLektion(count) {
         temp += `<tr><td class="begriff">${lektionContent[i][0]}</td><td class="definition">${lektionContent[i][1]}</td></tr>`
     }
     temp += "</table>"
-    temp += `<div><p onclick='allLektions.removeLektion(${count})}'>Entfernen</p><p onclick='addLektion()'>Bearbeiten</p></div></div>`
+    temp += `<section><p onclick='allLektions.removeLektion(${count})'>Entfernen</p><p onclick=' addLektion(); editLektion(${count});'>Bearbeiten</p></section></div>`
     
     document.getElementById('content').innerHTML = temp;
 }

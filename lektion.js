@@ -18,10 +18,12 @@ class Lektion {
 
         this.list.push(newLektion);
         localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
+        loadDashboard();
     }
     removeLektion(place){
-        this.list[place] = null;
+        this.list.splice(place, 1);
         localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
+        loadDashboard();
     }
     getName(place){
         return this.list[place].name
