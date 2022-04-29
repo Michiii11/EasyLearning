@@ -1,5 +1,4 @@
 // Tools for addLektion
-
 function addRow(row) {
     let begriff, definition
 
@@ -30,9 +29,9 @@ function removeRow(row) {
 }
 
 function saveLektion() {
-    if(newLektion.content){
-        addRow(0);
-    }
+    let tempLength = document.getElementsByClassName("definitionV").length
+
+    addRow(tempLength-1)
     allLektions.addNewLektion(newLektion.name, newLektion.content);
     content = allLektions.list[0].content;
 

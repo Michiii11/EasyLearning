@@ -51,14 +51,13 @@ class newLektion{
     }
     setName(name){
         this.name = name;
-        console.log(name)
     }
     setNewRow(row){
         this.content.push(row);
     }
     clear(){
         this.content = new Array();
-        this.name;
+        this.name = "";
     }
     removeRow(place){
         this.content.splice(place, 1);

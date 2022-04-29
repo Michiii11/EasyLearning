@@ -58,12 +58,12 @@ function addLektion() {
     let rowCount = 0;
     if(newLektion.content){
         for(let i = 0; i < newLektion.content.length; i++){
-            temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value="${newLektion.content[i][0]}"></td><td class="definition"><input class="definitionV" onclick="this.select()" value="${newLektion.content[i][1]}"></td><td><i onclick="removeRow()" id="trash${i}" class="fa-solid fa-trash"></i></td></tr>`
+            temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value="${newLektion.content[i][0]}"></td><td class="definition"><input class="definitionV" onclick="this.select()" value="${newLektion.content[i][1]}"></td><td><i onclick="removeRow(${i})" id="trash${i}" class="fa-solid fa-trash"></i></td></tr>`
             rowCount++;
         }
     } 
-    temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" id="lastTab" onclick="this.select()"></td><td><i onclick="removeRow()" id="trash${tempCount}" class="fa-solid fa-trash"></i></td></tr>`
-    temp += `<tr><td colspan="2" id="lastRow" onclick="addRow()"><i class="fa-solid fa-plus"></td></tr>`
+    temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" id="lastTab" onclick="this.select()"></td><td><i onclick="removeRow(${tempCount})" id="trash${tempCount}" class="fa-solid fa-trash"></i></td></tr>`
+    temp += `<tr><td colspan="2" id="lastRow" onclick="addRow(${rowCount})"><i class="fa-solid fa-plus"></td></tr>`
     temp += "</table>";
     
 
