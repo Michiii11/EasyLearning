@@ -1,23 +1,29 @@
 var img1 = "./img/headerW.png"
 var img2 = "./img/headerD.png"
 var mode = "BLACK"
+
 var allLektions;
+var lektionName;
+var lektionContent;
+
 var temp;
 
 loadDashboard();
 
 // load Dashboard
 function loadDashboard() {
+    newLektion.clear();
+
     let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
-                <a onclick="loadDashboard()"><div><i id="active" class="fa-solid fa-house"></i></div></a>
-                <a onclick="addLektion()"><div><i class="fa-solid fa-plus"></i></div></a>
-                <a onclick="searchLektion()"><div><i class="fa-solid fa-magnifying-glass"></i></div></a>
-                <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>`
+                  <a onclick="loadDashboard()"><div><i id="active" class="fa-solid fa-house"></i></div></a>
+                  <a onclick="addLektion()"><div><i class="fa-solid fa-plus"></i></div></a>
+                  <a onclick="searchLektion()"><div><i class="fa-solid fa-magnifying-glass"></i></div></a>
+                  <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>`
     document.getElementById('nav').innerHTML = nav;
 
+    // Preview Field
     temp = "";
     temp += `<div id="previewField">`
-
     for(let i = 0; i < allLektions.list.length; i++){
         if(allLektions.list[i] != null){
             temp += `<div class="preview" onclick="loadLektion(${i})"><h1>${allLektions.list[i].name}</h1><p>${allLektions.list[i].content.length} Begriffe</p></div>`
@@ -31,50 +37,48 @@ function loadDashboard() {
 
 // Load Add Lektion
 function addLektion() {
-    // Navigation
-    nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
-                <a onclick="loadDashboard()"><div><i class="fa-solid fa-house"></i></div></a>
-                <a onclick="addLektion()"><div><i id="active" class="fa-solid fa-plus"></i></div></a>
-                <a onclick="searchLektion()"><div><i class="fa-solid fa-magnifying-glass"></i></div></a>
-                <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>`
+    let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
+                  <a onclick="loadDashboard()"><div><i class="fa-solid fa-house"></i></div></a>
+                  <a onclick="addLektion()"><div><i id="active" class="fa-solid fa-plus"></i></div></a>
+                  <a onclick="searchLektion()"><div><i class="fa-solid fa-magnifying-glass"></i></div></a>
+                  <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>`
     document.getElementById('nav').innerHTML = nav;
 
     // Header
     temp = `<div id="addLektion"><h1 id="name">Neue Lektion erstellen</h1>`
-    temp += `<br><input class="input" id="lektionName" type="text" placeholder="Gib einen Titel ein wie 'Englisch - Kapitel 1: Welcome Back'" autofocus>`
+    let name = "";
+    if(newLektion.name){
+        name = newLektion.name;
+    }
+    temp += `<br><input class="input" id="lektionName" value="${name}" type="text" placeholder="Gib einen Titel ein wie 'Englisch - Kapitel 1: Welcome Back'" autofocus>`
     temp += `<div id='autoGenerate' onclick="loadAutoGenerate()">Auto Generate Table</div>`
 
     // Table
     temp += "<table><tr><th>Begriff</th><th>Defintion</th></tr>"
-    let tempCount;
-    if(lektionContent){
-        for(let i = 0; i < lektionContent.length; i++){
-            // All Rows
-            if(i != lektionContent.length-1){
-                temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value="${lektionContent[i][0]}"></td><td class="definition"><input class="definitionV" onclick="this.select()" value="${lektionContent[i][0]}></td><td><i onclick="removeRow()" id="trash${tempCount}" class="fa-solid fa-trash"></i></td></tr>`
-                tempCount = i;
-            } 
-            // Last Row
-            else{
-                temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value="${lektionContent[i][0]}"></td><td class="definition"><input class="definitionV"  id="lastTab" onclick="this.select()" value="${lektionContent[i][0]}></td><td><i onclick="removeRow()" id="trash${tempCount}" class="fa-solid fa-trash"></i></td></tr>`
-                temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" id="lastTab" onclick="this.select()"></td><td><i onclick="removeRow()" id="trash${tempCount}" class="fa-solid fa-trash"></i></td></tr>`
-                temp += `<tr><td colspan="2" id="lastRow" onclick="addRow()"><i class="fa-solid fa-plus"></td></tr>`
-                temp += "</table>";
-            }
+    let rowCount = 0;
+    if(newLektion.content){
+        for(let i = 0; i < newLektion.content.length; i++){
+            temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value="${newLektion.content[i][0]}"></td><td class="definition"><input class="definitionV" onclick="this.select()" value="${newLektion.content[i][1]}"></td><td><i onclick="removeRow()" id="trash${i}" class="fa-solid fa-trash"></i></td></tr>`
+            rowCount++;
         }
-    } else {
-        temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" id="lastTab" onclick="this.select()"></td><td><i onclick="removeRow()" id="trash${tempCount}" class="fa-solid fa-trash"></i></td></tr>`
-        temp += `<tr><td colspan="2" id="lastRow" onclick="addRow()"><i class="fa-solid fa-plus"></td></tr>`
-        temp += "</table>";
-    }
+    } 
+    temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" id="lastTab" onclick="this.select()"></td><td><i onclick="removeRow()" id="trash${tempCount}" class="fa-solid fa-trash"></i></td></tr>`
+    temp += `<tr><td colspan="2" id="lastRow" onclick="addRow()"><i class="fa-solid fa-plus"></td></tr>`
+    temp += "</table>";
+    
 
     // Save
     temp += "<div id='confirm' onclick='saveLektion()'>Save</div>"
-
     document.getElementById('content').innerHTML = temp;
+
+    // Event Listener
+    document.getElementById("lektionName").addEventListener('blur', function() {
+        name = document.getElementById("lektionName").value
+        newLektion.setName(name)
+    })
     document.getElementById("lastTab").addEventListener('keydown', function (e) {
         if (e.keyCode == 9) {
-            addRow();
+            addRow(rowCount);
         } 
         if (e.keyCode == 13){
             saveLektion();
@@ -120,6 +124,7 @@ function editLektion(count, temp){
 
 // Load Search Lektion
 function searchLektion() {
+    // Navigation
     let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
                 <a onclick="loadDashboard()"><div><i class="fa-solid fa-house"></i></div></a>
                 <a onclick="addLektion()"><div><i class="fa-solid fa-plus"></i></div></a>
@@ -134,19 +139,19 @@ function searchLektion() {
 
 // Load Lektion Menu
 function loadLektion(count) {
-    content = allLektions.list[count].content
-    list = random(content);
-
-    wrongAnswers = new Array();
-    tempContent = content;
-    tempCount = count;
-     
     let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
                   <a onclick="loadDashboard()"><div><i id="active" class="fa-solid fa-house"></i></div></a>
                   <a onclick="addLektion()"><div><i class="fa-solid fa-plus"></i></div></a>
                   <a onclick="searchLektion()"><div><i class="fa-solid fa-magnifying-glass"></i></div></a>
                   <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>`
     document.getElementById('nav').innerHTML = nav;
+
+    content = allLektions.list[count].content
+    list = random(content);
+
+    wrongAnswers = new Array();
+    tempContent = content;
+    tempCount = count;
 
     let lektionName = allLektions.list[count].name;
     let lektionContent = allLektions.list[count].content;   

@@ -1,52 +1,39 @@
 // Tools for addLektion
-let lektionName;
-let lektionContent;
 
-function addRow() {
-    let begriff = new Array();
-    let definition = new Array();
-    lektionName = document.getElementById('lektionName').value;
+function addRow(row) {
+    let begriff, definition
 
-    for (let i = 0; i < document.getElementsByClassName("begriffV").length; i++) {
-        begriff[i] = document.getElementsByClassName("begriffV")[i].value;
-        definition[i] = document.getElementsByClassName("definitionV")[i].value;
+    if(document.getElementsByClassName("begriffV")[row]){
+        begriff = document.getElementsByClassName("begriffV")[row].value;
+    } else{
+        begriff = ""
     }
-    lektionContent = [begriff][definition];
+
+    if(document.getElementsByClassName("definitionV")[row]){
+        definition = document.getElementsByClassName("definitionV")[row].value;
+    } else{
+        definition = ""
+    }
+    
+    newLektion.setNewRow([begriff, definition]);
 
     addLektion();
 
     // Fokus auf die nächste Spalte
     let begriffV = document.querySelectorAll(".definitionV");
-    begriffV[begriff.length - 1].focus(); 
+    begriffV[newLektion.content.length - 1].focus();
 }
 
 function removeRow(row) {
-    let begriffe = new Array();
-    let definitionen = new Array();
-    for (let i = 0; i < document.getElementsByClassName("begriffV").length; i++) {
-        begriffe.push(document.getElementsByClassName("begriffV")[i])
-        definitionen.push(document.getElementsByClassName("definitionV")[i])
-    }
-    begriffe.splice(row, 1);
-    definitionen.splice(row, 1);
-    for (let i = 0; i < begriffe.length; i++) {
-        document.getElementsByClassName("begriffV")[i] = begriffe[i];
-        document.getElementsByClassName("definitionV")[i] = begriffe[i];
-    }
-
+    newLektion.removeRow(row);
     addLektion();
 }
 
 function saveLektion() {
-    lektionName = document.getElementById('lektionName').value
-    lektionContent = new Array(contentCount);
-    for (let i = 0; i < lektionContent.length; i++) {
-        lektionContent[i] = [
-            [document.getElementsByClassName("begriffV")[i].value],
-            [document.getElementsByClassName("definitionV")[i].value]
-        ]
+    if(newLektion.content){
+        addRow(0);
     }
-    allLektions.addNewLektion(lektionName, lektionContent);
+    allLektions.addNewLektion(newLektion.name, newLektion.content);
     content = allLektions.list[0].content;
 
     loadDashboard();

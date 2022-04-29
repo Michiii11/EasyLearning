@@ -1,15 +1,7 @@
 class Lektion {
-    /**
-     * Inits an empty Lektion
-     */
     constructor() {
         this.list = new Array();
     }
-    /**
-     * Creates a new Lektion and saves it in the list (array)
-     * @param {String} n  - Name of the Lektion
-     * @param {String} c  - Content of the Lektion
-     */
     addNewLektion(n, c) {
         let newLektion = {
             name: n,
@@ -51,3 +43,25 @@ if (!localStorage["lektionSaves"]) {
 console.log(allLektions.list);
 
 
+
+class newLektion{
+     constructor() {
+        this.name;
+        this.content = new Array();
+    }
+    setName(name){
+        this.name = name;
+        console.log(name)
+    }
+    setNewRow(row){
+        this.content.push(row);
+    }
+    clear(){
+        this.content = new Array();
+        this.name;
+    }
+    removeRow(place){
+        this.content.splice(place, 1);
+    }
+}
+newLektion = new newLektion();
