@@ -1,46 +1,40 @@
 // Tools for addLektion
 let lektionName;
 let lektionContent;
-let contentCount = 1;
 
 function addRow() {
-    contentCount++;
-    temp = `<div id="addLektion"><h1 id="name">Neue Lektion erstellen</h1>`
-    temp += `<br><input class="input" id="lektionName" type="text" placeholder="Gib einen Titel ein wie 'Englisch - Kapitel 1: Welcome Back'">`
-    temp += `<div id='autoGenerate' onclick="loadAutoGenerate()">Auto Generate Table</div>`
-    temp += "<table><tr><th>Begriff</th><th>Defintion</th></tr>"
+    let begriff = new Array();
+    let definition = new Array();
+    lektionName = document.getElementById('lektionName').value;
 
-    for(let i = 0; i < document.getElementsByClassName("begriffV").length; i++){
-        temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" onclick="this.select()"></td></tr>`
-    }
-
-    temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" id="lastTab" onclick="this.select()"></td></tr>`
-    temp += `<tr><td colspan="2" id="lastRow" onclick="addRow()"><i class="fa-solid fa-plus"></td></tr>`
-    temp += "</table>";
-    temp += "<div id='confirm' onclick='saveLektion()'>Save</div>"
-
-    let begriff = new Array(),
-        definition = new Array();
-    let name = document.getElementById('lektionName').value;
     for (let i = 0; i < document.getElementsByClassName("begriffV").length; i++) {
         begriff[i] = document.getElementsByClassName("begriffV")[i].value;
         definition[i] = document.getElementsByClassName("definitionV")[i].value;
     }
-    document.getElementById("content").innerHTML = temp;
+    lektionContent = [begriff][definition];
 
-    document.getElementById('lektionName').value = name;
-    for (let i = 0; i < begriff.length; i++) {
-        document.getElementsByClassName("begriffV")[i].value = begriff[i]
-        document.getElementsByClassName("definitionV")[i].value = definition[i]
+    addLektion();
+
+    // Fokus auf die nächste Spalte
+    let begriffV = document.querySelectorAll(".definitionV");
+    begriffV[begriff.length - 1].focus(); 
+}
+
+function removeRow(row) {
+    let begriffe = new Array();
+    let definitionen = new Array();
+    for (let i = 0; i < document.getElementsByClassName("begriffV").length; i++) {
+        begriffe.push(document.getElementsByClassName("begriffV")[i])
+        definitionen.push(document.getElementsByClassName("definitionV")[i])
+    }
+    begriffe.splice(row, 1);
+    definitionen.splice(row, 1);
+    for (let i = 0; i < begriffe.length; i++) {
+        document.getElementsByClassName("begriffV")[i] = begriffe[i];
+        document.getElementsByClassName("definitionV")[i] = begriffe[i];
     }
 
-    let begriffV = document.querySelectorAll(".definitionV");
-    begriffV[begriff.length - 1].focus();
-    document.getElementById("lastTab").addEventListener('keydown', function (e) {
-        if (e.keyCode == 9) {
-            addRow();
-        }
-    });
+    addLektion();
 }
 
 function saveLektion() {
@@ -57,11 +51,12 @@ function saveLektion() {
 
     loadDashboard();
 }
+
 function saveEditLektion(tempCount) {
     lektionName = document.getElementById('lektionName').value
     lektionContent = new Array(contentCount);
     for (let i = 0; i < lektionContent.length; i++) {
-        if(document.getElementsByClassName("begriffV")[0]){
+        if (document.getElementsByClassName("begriffV")[0]) {
             lektionContent[i] = [
                 [document.getElementsByClassName("begriffV")[i].value],
                 [document.getElementsByClassName("definitionV")[i].value]
@@ -71,7 +66,7 @@ function saveEditLektion(tempCount) {
     allLektions.addNewLektion(lektionName, lektionContent);
     content = allLektions.list[0].content;
 
-    allLektions.removeLektion(tempCount)
+    allLektions.removeLektion(tempCount);
 
     loadDashboard();
 }
@@ -203,10 +198,11 @@ function changeMode() {
     img2 = temp;
     document.getElementById('header').innerHTML = `<div><img src="${img1}"></div>`;
 
-    if(mode == "BLACK"){
+    if (mode == "BLACK") {
         mode = "WHITE"
-    } else{
+    } else {
         mode = "BLACK"
     }
     localStorage["darkWhiteMode"] = mode;
 }
+if(mode != localStorage["darkWhiteMode"]){changeMode()}

@@ -6,42 +6,6 @@ var temp;
 
 loadDashboard();
 
-if(mode != localStorage["darkWhiteMode"]){changeMode()}
-
-// Function to Switch between Dark and White Mode
-function changeMode() {
-        // Swap Colors
-        let grey1 = getComputedStyle(document.documentElement).getPropertyValue('--grey1');
-        let grey2 = getComputedStyle(document.documentElement).getPropertyValue('--grey2');
-        let grey3 = getComputedStyle(document.documentElement).getPropertyValue('--grey3');
-        let grey4 = getComputedStyle(document.documentElement).getPropertyValue('--grey4');
-        let grey5 = getComputedStyle(document.documentElement).getPropertyValue('--grey5');
-
-        document.documentElement.style.setProperty('--grey1', grey5);
-        document.documentElement.style.setProperty('--grey2', grey4);
-        document.documentElement.style.setProperty('--grey3', grey3);
-        document.documentElement.style.setProperty('--grey4', grey2);
-        document.documentElement.style.setProperty('--grey5', grey1);
-
-        // Swap Shadows
-        temp = getComputedStyle(document.documentElement).getPropertyValue('--lightShadow');
-        document.documentElement.style.setProperty('--lightShadow', getComputedStyle(document.documentElement).getPropertyValue('--darkShadow'));
-        document.documentElement.style.setProperty('--darkShadow', temp);
-
-        // Swap Header Image
-        temp = img1;
-        img1 = img2;
-        img2 = temp;
-        document.getElementById('header').innerHTML = `<div><img src="${img1}"></div>`;
-
-        if(mode == "BLACK"){
-            mode = "WHITE"
-        } else{
-            mode = "BLACK"
-        }
-        localStorage["darkWhiteMode"] = mode;
-}
-
 // load Dashboard
 function loadDashboard() {
     let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
@@ -67,6 +31,7 @@ function loadDashboard() {
 
 // Load Add Lektion
 function addLektion() {
+    // Navigation
     nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
                 <a onclick="loadDashboard()"><div><i class="fa-solid fa-house"></i></div></a>
                 <a onclick="addLektion()"><div><i id="active" class="fa-solid fa-plus"></i></div></a>
@@ -74,22 +39,46 @@ function addLektion() {
                 <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>`
     document.getElementById('nav').innerHTML = nav;
 
+    // Header
     temp = `<div id="addLektion"><h1 id="name">Neue Lektion erstellen</h1>`
     temp += `<br><input class="input" id="lektionName" type="text" placeholder="Gib einen Titel ein wie 'Englisch - Kapitel 1: Welcome Back'" autofocus>`
     temp += `<div id='autoGenerate' onclick="loadAutoGenerate()">Auto Generate Table</div>`
 
+    // Table
     temp += "<table><tr><th>Begriff</th><th>Defintion</th></tr>"
-    temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" id="lastTab" onclick="this.select()"></td></tr>`
-    temp += `<tr><td colspan="2" id="lastRow" onclick="addRow()"><i class="fa-solid fa-plus"></td></tr>`
-    temp += "</table>";
+    let tempCount;
+    if(lektionContent){
+        for(let i = 0; i < lektionContent.length; i++){
+            // All Rows
+            if(i != lektionContent.length-1){
+                temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value="${lektionContent[i][0]}"></td><td class="definition"><input class="definitionV" onclick="this.select()" value="${lektionContent[i][0]}></td><td><i onclick="removeRow()" id="trash${tempCount}" class="fa-solid fa-trash"></i></td></tr>`
+                tempCount = i;
+            } 
+            // Last Row
+            else{
+                temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value="${lektionContent[i][0]}"></td><td class="definition"><input class="definitionV"  id="lastTab" onclick="this.select()" value="${lektionContent[i][0]}></td><td><i onclick="removeRow()" id="trash${tempCount}" class="fa-solid fa-trash"></i></td></tr>`
+                temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" id="lastTab" onclick="this.select()"></td><td><i onclick="removeRow()" id="trash${tempCount}" class="fa-solid fa-trash"></i></td></tr>`
+                temp += `<tr><td colspan="2" id="lastRow" onclick="addRow()"><i class="fa-solid fa-plus"></td></tr>`
+                temp += "</table>";
+            }
+        }
+    } else {
+        temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" id="lastTab" onclick="this.select()"></td><td><i onclick="removeRow()" id="trash${tempCount}" class="fa-solid fa-trash"></i></td></tr>`
+        temp += `<tr><td colspan="2" id="lastRow" onclick="addRow()"><i class="fa-solid fa-plus"></td></tr>`
+        temp += "</table>";
+    }
+
+    // Save
     temp += "<div id='confirm' onclick='saveLektion()'>Save</div>"
 
     document.getElementById('content').innerHTML = temp;
-    
     document.getElementById("lastTab").addEventListener('keydown', function (e) {
         if (e.keyCode == 9) {
             addRow();
         } 
+        if (e.keyCode == 13){
+            saveLektion();
+        }
     });
 }
 // Load Edit Lektion

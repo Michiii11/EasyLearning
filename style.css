@@ -33,10 +33,25 @@
     --grey5: #f2f5fe;
 }
 body {
-    background-color: var(--grey2);
+    background: linear-gradient(-45deg, var(--grey1), var(--grey2));
+    background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
     color: var(--grey5);
     transition: all 0.2s ease;
 }
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
 
 /************* NAV *************/
 nav {
@@ -264,6 +279,25 @@ nav a div:hover i , nav a div:hover h3{
     border: var(--grey5) 1px solid;
     cursor: pointer;
 }
+#addLektion i{
+    font-size: 1.7rem;
+    padding: 0.1rem;
+}
+#addLektion table tr{
+    position: relative;
+    overflow-x: visible;
+}
+.fa-trash{
+    position: absolute;
+    top: 30%;
+    left: 95%;
+    opacity: 0.1;
+    transition: 0.2s ease all;
+}
+.fa-trash:hover{
+    cursor: pointer;
+    opacity: 1;
+}
 
 /*********Auto Generate Table *********/
 #loadAutoGenerate{
@@ -419,14 +453,15 @@ nav a div:hover i , nav a div:hover h3{
 
 #achievmentA{
     position: absolute;
-    top: 70vh;
-    left: 45vw;
+    top: 73vh;
+    left: 35vw;
+    overflow-y: hidden;
 }
 #achievment{
     position: absolute;
-    display: flex;
-    top: 70vh;
-    left: 35vw;
+    top: 74vh;
+    left: 44vw;
+    overflow-y: hidden;
 }
 #achievment a, #achievmentA a{
     font-size: 1.3rem;
