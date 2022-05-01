@@ -28,31 +28,27 @@ function removeRow(row) {
     addLektion();
 }
 
-function saveLektion() {
-    let tempLength = document.getElementsByClassName("definitionV").length
+function saveLektion(type) {
+    // type == Edited Lektion - !type == New Lektion
 
-    addRow(tempLength-1)
-    allLektions.addNewLektion(newLektion.name, newLektion.content);
-    content = allLektions.list[0].content;
+    if(type != null){
+        let begriff = document.getElementsByClassName("begriffV")
+        let definition = document.getElementsByClassName("definitionV")
 
-    loadDashboard();
-}
-
-function saveEditLektion(tempCount) {
-    lektionName = document.getElementById('lektionName').value
-    lektionContent = new Array(contentCount);
-    for (let i = 0; i < lektionContent.length; i++) {
-        if (document.getElementsByClassName("begriffV")[0]) {
-            lektionContent[i] = [
-                [document.getElementsByClassName("begriffV")[i].value],
-                [document.getElementsByClassName("definitionV")[i].value]
-            ]
+        newLektion.clear();
+        newLektion.setName(document.getElementById("lektionName").value)
+    
+        for(let i = 0; i < begriff.length; i++){
+            newLektion.setNewRow([begriff[i].value, definition[i].value])
         }
-    }
-    allLektions.addNewLektion(lektionName, lektionContent);
-    content = allLektions.list[0].content;
 
-    allLektions.removeLektion(tempCount);
+        allLektions.replaceLektion(type, newLektion.name, newLektion.content)
+    } else{
+        let tempLength = document.getElementsByClassName("definitionV").length
+        addRow(tempLength-1)
+        allLektions.addNewLektion(newLektion.name, newLektion.content);
+        content = allLektions.list[0].content;
+    }
 
     loadDashboard();
 }
@@ -148,6 +144,7 @@ function autoGenerateTable() {
         });
 }
 
+// Function to get a Random ordered List of Numbers
 function random(temp) {
     let list = new Array(temp.length);
     for (let i = 0; i < temp.length; i++) {

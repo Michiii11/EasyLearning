@@ -6,14 +6,13 @@ var allLektions;
 var lektionName;
 var lektionContent;
 
-var temp;
-
 loadDashboard();
 
-// load Dashboard
+// Load Dashboard
 function loadDashboard() {
     newLektion.clear();
 
+    // Navigation
     let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
                   <a onclick="loadDashboard()"><div><i id="active" class="fa-solid fa-house"></i></div></a>
                   <a onclick="addLektion()"><div><i class="fa-solid fa-plus"></i></div></a>
@@ -36,7 +35,7 @@ function loadDashboard() {
 }
 
 // Load Add Lektion
-function addLektion() {
+function addLektion(type) {
     let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
                   <a onclick="loadDashboard()"><div><i class="fa-solid fa-house"></i></div></a>
                   <a onclick="addLektion()"><div><i id="active" class="fa-solid fa-plus"></i></div></a>
@@ -81,44 +80,19 @@ function addLektion() {
             addRow(rowCount);
         } 
         if (e.keyCode == 13){
-            saveLektion();
+            saveLektion(type);
         }
     });
 }
 // Load Edit Lektion
 function editLektion(count, temp){
-    let lektionName = allLektions.list[count].name;
-    let lektionContent = allLektions.list[count].content;  
+    newLektion.clear();
 
-    if(temp == null){
-        for(let i = 0; i < lektionContent.length - 1; i++){
-            addRow();
-        }
+    newLektion.setName(allLektions.list[count].name)
+
+    for(let i = 0; i < allLektions.list[count].content.length; i++){
+        newLektion.setNewRow(allLektions.list[count].content[i])
     }
-
-    document.getElementById("lektionName").value = lektionName;
-    for(let i = 0; i < lektionContent.length; i++){
-        document.getElementsByClassName("begriffV")[i].value = lektionContent[i][0]
-        document.getElementsByClassName("definitionV")[i].value = lektionContent[i][1]
-    }
-
-    let tempCont = document.getElementById('content').innerHTML
-
-    tempCont = (tempCont.substring(0, tempCont.length-52));
-    document.getElementById('content').innerHTML = tempCont;
-    document.getElementById('addLektion').innerHTML += `<div id='confirm' onclick='saveEditLektion(${count})'>Save</div>`
-
-    document.getElementById("lektionName").value = lektionName;
-    for(let i = 0; i < lektionContent.length; i++){
-        document.getElementsByClassName("begriffV")[i].value = lektionContent[i][0]
-        document.getElementsByClassName("definitionV")[i].value = lektionContent[i][1]
-    }
-    document.getElementById("lastTab").addEventListener('keydown', function (e) {
-        if (e.keyCode == 9) {
-            addRow();
-            editLektion(count, 1)
-        } 
-    });
 }
 
 
@@ -139,6 +113,7 @@ function searchLektion() {
 
 // Load Lektion Menu
 function loadLektion(count) {
+    // Navigation
     let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
                   <a onclick="loadDashboard()"><div><i id="active" class="fa-solid fa-house"></i></div></a>
                   <a onclick="addLektion()"><div><i class="fa-solid fa-plus"></i></div></a>
@@ -158,14 +133,15 @@ function loadLektion(count) {
 
     currentCard = content[collumn][row]
 
+    // Content
     temp = ""
-    temp += `<div id='lektionOverview'><h2>${lektionName}</h2><div><p onclick='loadKarteikarten()'>Karteikarten</p><p onclick='loadLernen()'>Lernen</p><p onclick='loadAntworten(${count})'>Antworten</p></div>`
+    temp += `<div id='lektionOverview'><h2>${lektionName}</h2><div><p onclick='loadKarteikarten()'>Karteikarten</p><p onclick='loadLernen()'>Schreiben</p><p onclick='loadAntworten(${count})'>Antworten</p></div>`
     temp += "<table id='tableLektion'><tr><th>Begriff</th><th id='englisch' onclick='autoEnglisch()'>Definition</th></tr>"
     for (let i = 0; i < lektionContent.length; i++) {
         temp += `<tr><td class="begriff">${lektionContent[i][0]}</td><td class="definition">${lektionContent[i][1]}</td></tr>`
     }
     temp += "</table>"
-    temp += `<section><p onclick='allLektions.removeLektion(${count})'>Entfernen</p><p onclick=' addLektion(); editLektion(${count});'>Bearbeiten</p></section></div>`
+    temp += `<section><p onclick='allLektions.removeLektion(${count})'>Entfernen</p><p onclick='editLektion(${count});addLektion(${count});'>Bearbeiten</p></section></div>`
     
     document.getElementById('content').innerHTML = temp;
 }

@@ -10,6 +10,7 @@ class Lektion {
 
         this.list.push(newLektion);
         localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
+        console.log(`Successfully added new Lektion`)
         loadDashboard();
     }
     removeLektion(place){
@@ -17,6 +18,13 @@ class Lektion {
         localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
         console.log(`Successfully cleared ${place+1}. Lektion`)
         loadDashboard();
+    }
+    replaceLektion(place, name, content){
+        this.list[place].name = name;
+        this.list[place].content = content;
+        localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
+        console.log(`Successfully replaced ${place+1}. Lektion`)
+        console.log("Lol")
     }
     getName(place){
         return this.list[place].name
@@ -31,17 +39,6 @@ class Lektion {
         this.list = arr
     }
 }
-
-// Localstorage swap with List
-if (!localStorage["lektionSaves"]) {
-    allLektions = new Lektion();
-    localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
-} else {
-    allLektions = new Lektion();
-    allLektions.setData(JSON.parse(localStorage["lektionSaves"]))
-}
-console.log(allLektions.list);
-
 
 
 class newLektion{
@@ -63,4 +60,15 @@ class newLektion{
         this.content.splice(place, 1);
     }
 }
+
+
+// Localstorage swap with List
+if (!localStorage["lektionSaves"]) {
+    allLektions = new Lektion();
+    localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
+} else {
+    allLektions = new Lektion();
+    allLektions.setData(JSON.parse(localStorage["lektionSaves"]))
+}
 newLektion = new newLektion();
+console.log(allLektions.list);

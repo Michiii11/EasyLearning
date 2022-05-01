@@ -35,11 +35,6 @@ function skip(sum) {
 }
 
 // Task - Lernen
-function loadLernen() {
-
-}
-
-// Task - Antworten
 let currentWord = 0;
 let playground = "";
 
@@ -49,6 +44,64 @@ let tempCount = 0;
 let wrongCount = 0;
 let tempContent = content;
 
+function loadLernen() {
+    if (playground == "") {
+        playground += `<div id="playground">`
+        playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][1]}</a>`
+        playground += `<input type="text" id="antwort" autofocus onchange="checkLernen()">`
+        playground += `</div>`
+    } else {
+        playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][1]}</a>`
+        playground += `<a>${tempContent[[list[currentWord]]][0]}</a>`
+        playground += `<input type="text" id="antwort" autofocus onchange="checkLernen()">`
+        playground += `</div>`
+    }
+    playground += `<div id="achievmentA"><a>Richtig: ${currentWord-wrongAnswers.length}</a><a>Fortschritt: ${currentWord+1}/${tempContent.length}</a><a>Falsch: ${wrongAnswers.length}</a></div>`
+    playground += `<a id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</a>`
+
+    document.getElementById("content").innerHTML = playground;
+    playground = "";
+}
+function checkLernen() {
+    if (tempContent[[list[currentWord]]][0].toString().toLowerCase() == document.getElementById("antwort").value.toString().toLowerCase()) {
+        document.getElementById("content").innerHTML = "";
+        if (currentWord + 1 < tempContent.length) {
+            currentWord += 1;
+            loadLernen();
+        } else {
+            if (wrongAnswers == "") {
+                tempContent = content;
+                list = random(tempContent);
+                playground += `<div id='playground'>`
+                playground += `<div id="answer"><a>Finished</a></div>`
+                playground += `</div>`
+                playground += `<button id="replay" onclick="loadLernen()">Neu Starten</button>`
+                playground += `<button id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</button>`
+                document.getElementById("content").innerHTML = playground;
+            } else {
+                tempContent = wrongAnswers;
+                list = random(tempContent);
+                wrongAnswers = "";
+                playground += `<div id='playground'>`
+                playground += `<div id="answer"><a>Defeat</a></div>`
+                playground += `</div>`
+                playground += `<button id="replay" onclick="loadLernen()">Fortfahren</button>`
+                playground += `<button id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</button>`
+                document.getElementById("content").innerHTML = playground;
+            }
+            wrongAnswers = new Array()
+            currentWord = 0;
+            wrongCount = 0;
+            playground = "";
+        }
+    } else {
+        wrongAnswers[wrongCount++] = tempContent[[list[currentWord]]]
+        playground += `<div id="playground">`
+        loadAntworten();
+    }
+}
+
+// Task - Antworten
 function loadAntworten(count) {
     if (playground == "") {
         playground += `<div id="playground">`
@@ -102,7 +155,6 @@ function checkAnswer() {
         }
     } else {
         wrongAnswers[wrongCount++] = tempContent[[list[currentWord]]]
-        console.log(wrongAnswers);
         playground += `<div id="playground">`
         loadAntworten();
     }
