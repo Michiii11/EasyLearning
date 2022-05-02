@@ -61,7 +61,7 @@ function addLektion(type) {
             rowCount++;
         }
     } 
-    temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" id="lastTab" onclick="this.select()"></td><td><i onclick="removeRow(${tempCount})" id="trash${tempCount}" class="fa-solid fa-trash"></i></td></tr>`
+    temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()"></td><td class="definition"><input class="definitionV" id="lastTab" onclick="this.select()" class="fa-solid fa-trash"></i></td></tr>`
     temp += `<tr><td colspan="2" id="lastRow" onclick="addRow(${rowCount})"><i class="fa-solid fa-plus"></td></tr>`
     temp += "</table>";
     

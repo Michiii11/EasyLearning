@@ -53,6 +53,36 @@ function saveLektion(type) {
     loadDashboard();
 }
 
+// Tools for Tasks
+function getAudio(language, word){
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            let dataString = this.responseText;
+            let data = JSON.parse(dataString);
+
+            for(let i = 0; i < data[0].phonetics.length; i++){
+                if(data[0].phonetics[i].audio){
+                    audio = `${data[0].phonetics[i].audio}`
+                    document.getElementById('answer').innerHTML += `<audio controls><source src="${audio}" type="audio/mp3"></audio>`
+                    return
+                }
+            }
+            document.getElementById('answer').innerHTML += `<audio controls><source src="" type="audio/mp3"></audio>`
+        };
+    }
+    xhttp.open('GET', `https://api.dictionaryapi.dev/api/v2/entries/${language}/${word}`, true);
+    xhttp.send();
+}
+
+
+
+
+
+
+
+
+
 function makeLektion(elem) {
     document.getElementById("content").innerHTML = ``
     elem = elem.value;

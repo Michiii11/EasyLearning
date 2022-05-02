@@ -12,9 +12,10 @@ function loadKarteikarten(count) {
     playground += `<i onclick="skip(1)" class="fa-solid fa-angle-right"></i></div>`
     playground += `<div id="achievment"><a>Fortschritt: ${collumn+1}/${content.length}</a></div>`
     playground += `<a id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</a>`
- 
+
     document.getElementById("content").innerHTML = playground;
 }
+
 function swap() {
     if (row == 0) {
         row = 1;
@@ -24,13 +25,14 @@ function swap() {
     currentCard = content[collumn][row]
     loadKarteikarten();
 }
+
 function skip(sum) {
     if (collumn + sum >= 0 && collumn + sum < content.length) {
         collumn = collumn + sum;
     }
     row = 0;
     currentCard = content[collumn][row]
-    
+
     loadKarteikarten();
 }
 
@@ -43,25 +45,43 @@ let wrongAnswers = new Array();
 let tempCount = 0;
 let wrongCount = 0;
 let tempContent = content;
+let audio;
 
 function loadLernen() {
+    let tempWord = tempContent[[list[currentWord]]][0].toString().toLowerCase()
+    getAudio("en", tempWord);
+
+    // Erste Eingabe
     if (playground == "") {
         playground += `<div id="playground">`
+        playground += `<div id="playbutton-parent"><div id="playbutton-child"><p>icon</p></div></div>`
         playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][1]}</a>`
         playground += `<input type="text" id="antwort" autofocus onchange="checkLernen()">`
         playground += `</div>`
-    } else {
+        playground += `<div id="achievmentA"><a>Richtig: ${currentWord-wrongAnswers.length}</a><a>Fortschritt: ${currentWord+1}/${tempContent.length}</a><a>Falsch: ${wrongAnswers.length}</a></div>`
+        playground += `<a id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</a>`
+    }
+    // Falsche Eingabe 
+    else {
         playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][1]}</a>`
         playground += `<a>${tempContent[[list[currentWord]]][0]}</a>`
         playground += `<input type="text" id="antwort" autofocus onchange="checkLernen()">`
         playground += `</div>`
+        playground += `<div id="achievmentA"><a>Richtig: ${currentWord-wrongAnswers.length}</a><a>Fortschritt: ${currentWord+1}/${tempContent.length}</a><a>Falsch: ${wrongAnswers.length}</a></div>`
+        playground += `<a id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</a>`
     }
-    playground += `<div id="achievmentA"><a>Richtig: ${currentWord-wrongAnswers.length}</a><a>Fortschritt: ${currentWord+1}/${tempContent.length}</a><a>Falsch: ${wrongAnswers.length}</a></div>`
-    playground += `<a id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</a>`
 
     document.getElementById("content").innerHTML = playground;
-    playground = "";
+    playground = ""
+
+
+
+    let begriffV = document.getElementById('antowrt')
+    begriffV[newLektion.content.length - 1].focus();
+
 }
+
+
 function checkLernen() {
     if (tempContent[[list[currentWord]]][0].toString().toLowerCase() == document.getElementById("antwort").value.toString().toLowerCase()) {
         document.getElementById("content").innerHTML = "";
@@ -97,7 +117,7 @@ function checkLernen() {
     } else {
         wrongAnswers[wrongCount++] = tempContent[[list[currentWord]]]
         playground += `<div id="playground">`
-        loadAntworten();
+        loadLernen();
     }
 }
 
@@ -105,12 +125,12 @@ function checkLernen() {
 function loadAntworten(count) {
     if (playground == "") {
         playground += `<div id="playground">`
-        playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][0]}</a>`
+        playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][1]}</a>`
         playground += `<input type="text" id="antwort" autofocus onchange="checkAnswer()">`
         playground += `</div>`
     } else {
-        playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][0]}</a>`
-        playground += `<a>${tempContent[[list[currentWord]]][1]}</a>`
+        playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][1]}</a>`
+        playground += `<a>${tempContent[[list[currentWord]]][0]}</a>`
         playground += `<input type="text" id="antwort" autofocus onchange="checkAnswer()">`
         playground += `</div>`
     }
@@ -122,7 +142,7 @@ function loadAntworten(count) {
 }
 
 function checkAnswer() {
-    if (tempContent[[list[currentWord]]][1].toString().toLowerCase() == document.getElementById("antwort").value.toString().toLowerCase()) {
+    if (tempContent[[list[currentWord]]][0].toString().toLowerCase() == document.getElementById("antwort").value.toString().toLowerCase()) {
         document.getElementById("content").innerHTML = "";
         if (currentWord + 1 < tempContent.length) {
             currentWord += 1;
