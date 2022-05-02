@@ -45,7 +45,7 @@ let wrongAnswers = new Array();
 let tempCount = 0;
 let wrongCount = 0;
 let tempContent = content;
-let audio;
+var audio;
 
 function loadLernen() {
     let tempWord = tempContent[[list[currentWord]]][0].toString().toLowerCase()
@@ -54,8 +54,8 @@ function loadLernen() {
     // Erste Eingabe
     if (playground == "") {
         playground += `<div id="playground">`
-        playground += `<div id="playbutton-parent"><div id="playbutton-child"><p>icon</p></div></div>`
         playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][1]}</a>`
+        playground += `<div id="word"><div id="playbutton-parent"><div onclick="playSound()" id="playbutton-child"><i class="fa-solid fa-pause"></i></div></div>`
         playground += `<input type="text" id="antwort" autofocus onchange="checkLernen()">`
         playground += `</div>`
         playground += `<div id="achievmentA"><a>Richtig: ${currentWord-wrongAnswers.length}</a><a>Fortschritt: ${currentWord+1}/${tempContent.length}</a><a>Falsch: ${wrongAnswers.length}</a></div>`
@@ -63,6 +63,7 @@ function loadLernen() {
     }
     // Falsche Eingabe 
     else {
+        playground += `<div id="playbutton-parent"><div onclick="playSound()" id="playbutton-child"><i class="fa-solid fa-pause"></i></div></div>`
         playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][1]}</a>`
         playground += `<a>${tempContent[[list[currentWord]]][0]}</a>`
         playground += `<input type="text" id="antwort" autofocus onchange="checkLernen()">`
@@ -73,12 +74,6 @@ function loadLernen() {
 
     document.getElementById("content").innerHTML = playground;
     playground = ""
-
-
-
-    let begriffV = document.getElementById('antowrt')
-    begriffV[newLektion.content.length - 1].focus();
-
 }
 
 

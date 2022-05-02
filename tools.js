@@ -61,20 +61,24 @@ function getAudio(language, word){
             let dataString = this.responseText;
             let data = JSON.parse(dataString);
 
+            document.getElementById('content').innerHTML += `<audio id="sound" controls></audio>`
+
             for(let i = 0; i < data[0].phonetics.length; i++){
                 if(data[0].phonetics[i].audio){
                     audio = `${data[0].phonetics[i].audio}`
-                    document.getElementById('answer').innerHTML += `<audio controls><source src="${audio}" type="audio/mp3"></audio>`
-                    return
+                    document.getElementById("sound").innerHTML = `<source src="${audio}" type="audio/mp3">`
+                    document.getElementById("playbutton-parent").innerHTML = `<div onclick="playSound()" id="playbutton-child"><i class="fa-solid fa-pause"></i></div>`
                 }
             }
-            document.getElementById('answer').innerHTML += `<audio controls><source src="" type="audio/mp3"></audio>`
+            document.getElementById("playbutton-parent").innerHTML = `<div onclick="playSound()" id="playbutton-child"><i class="fa-solid fa-pause"></i></div>`
         };
     }
     xhttp.open('GET', `https://api.dictionaryapi.dev/api/v2/entries/${language}/${word}`, true);
     xhttp.send();
 }
-
+function playSound(){
+    document.getElementById("sound").play();
+}
 
 
 

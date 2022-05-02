@@ -551,11 +551,17 @@ nav a div:hover i , nav a div:hover h3{
     user-select: none;
 }
 
+#word{
+    display: flex;
+}
+#word div{
+    margin: 1vw;
+}
 #playbutton-parent{
     aspect-ratio: 1 / 1;
     background-color: #515864;
     border-radius: 50%;
-    height: 5rem;
+    width: 5rem;
     box-sizing: border-box;
     display: grid;
     place-items: center;
@@ -566,17 +572,25 @@ nav a div:hover i , nav a div:hover h3{
     aspect-ratio: 1 / 1;
     background-color: var(--grey3);
     border-radius: 50%;
-    height: 80%;
+    width: 80%;
     box-sizing: border-box;
     display: grid;
     place-items: center;
     box-shadow: inset .2rem .25rem .2rem var(--grey2),
     inset 0rem 0rem .2rem .1rem var(--grey2);
     user-select: none;
+    overflow-y: hidden;
+}
+#playbutton-child i{
+    font-size: 1.5rem;
+    color: var(--grey4)
 }
 #playbutton-child:hover{
     cursor: pointer;
 }
 #playbutton-child:active{
     height: 90%;
+}
+#sound{
+    display: none;
 }
