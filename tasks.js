@@ -63,9 +63,9 @@ function loadLernen() {
     }
     // Falsche Eingabe 
     else {
-        playground += `<div id="playbutton-parent"><div onclick="playSound()" id="playbutton-child"><i class="fa-solid fa-pause"></i></div></div>`
         playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][1]}</a>`
         playground += `<a>${tempContent[[list[currentWord]]][0]}</a>`
+        playground += `<div id="word"><div id="playbutton-parent"><div onclick="playSound()" id="playbutton-child"><i class="fa-solid fa-pause"></i></div></div>`
         playground += `<input type="text" id="antwort" autofocus onchange="checkLernen()">`
         playground += `</div>`
         playground += `<div id="achievmentA"><a>Richtig: ${currentWord-wrongAnswers.length}</a><a>Fortschritt: ${currentWord+1}/${tempContent.length}</a><a>Falsch: ${wrongAnswers.length}</a></div>`
