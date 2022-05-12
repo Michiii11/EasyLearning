@@ -24,7 +24,7 @@ function addRow(row) {
 }
 
 function removeRow(row) {
-    newLektion.removeRow(row);
+    newLektion.removeRow(row);  
     addLektion();
 }
 
@@ -67,17 +67,24 @@ function getAudio(language, word){
                 if(data[0].phonetics[i].audio){
                     audio = `${data[0].phonetics[i].audio}`
                     document.getElementById("sound").innerHTML = `<source src="${audio}" type="audio/mp3">`
-                    document.getElementById("playbutton-parent").innerHTML = `<div onclick="playSound()" id="playbutton-child"><i class="fa-solid fa-pause"></i></div>`
+                    document.getElementById("playbutton-parent").innerHTML = `<div onclick="playSound()" id="playbutton-child"><i class="fa-solid fa-play"></i></div>`
                 }
             }
-            document.getElementById("playbutton-parent").innerHTML = `<div onclick="playSound()" id="playbutton-child"><i class="fa-solid fa-pause"></i></div>`
+            document.getElementById("playbutton-parent").innerHTML = `<div onclick="playSound()" id="playbutton-child"><i class="fa-solid fa-play"></i></div>`
         };
     }
     xhttp.open('GET', `https://api.dictionaryapi.dev/api/v2/entries/${language}/${word}`, true);
     xhttp.send();
 }
 function playSound(){
-    document.getElementById("sound").play();
+    if(document.getElementById("playbutton-child").innerHTML == `<i class="fa-solid fa-play"></i>`){
+        document.getElementById("playbutton-child").innerHTML = `<i class="fa-solid fa-pause"></i>`
+        document.getElementById("sound").play();
+        setTimeout(playSound, 2000)
+    } else{
+        document.getElementById("playbutton-child").innerHTML = `<i class="fa-solid fa-play"></i>`
+        document.getElementById("sound").pause();
+    }
 }
 
 
@@ -151,6 +158,34 @@ function loadAutoGenerate() {
                 autoGenerateTable();
             }
         });
+}
+
+let languages = ["Deutsch", "Englisch", "Spanisch", "Französisch"]
+function getDropdown(text){
+    let temp = new Array(languages.length);
+    for(let i = 0; i < languages.length; i++){
+        temp[i] = languages[i]
+    }
+    temp.splice(temp.indexOf(newLektion.bSprache), 1);
+
+    text += `<tr><th><details><summary>${newLektion.bSprache}</summary>` 
+    for(let i = 0; i < temp.length; i++){
+        text += `<p>${temp[i]}</p>`
+    }
+
+    text += `</details></th><th><details><summary>${newLektion.dSprache}</summary>`
+    
+    temp = new Array(languages.length);
+    for(let i = 0; i < languages.length; i++){
+        temp[i] = languages[i]
+    }
+    temp.splice(temp.indexOf(newLektion.dSprache), 1);
+    for(let i = 0; i < temp.length; i++){
+        text += `<p>${temp[i]}</p>`
+    }
+    text += `</details></th></tr>`
+
+    return text;
 }
 
 function autoGenerateTable() {

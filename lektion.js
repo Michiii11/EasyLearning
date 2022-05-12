@@ -2,10 +2,12 @@ class Lektion {
     constructor() {
         this.list = new Array();
     }
-    addNewLektion(n, c) {
+    addNewLektion(n, c, b, d) {
         let newLektion = {
             name: n,
-            content: c
+            content: c,
+            bSprache: b,
+            dSprache: d
         }
 
         this.list.push(newLektion);
@@ -24,7 +26,6 @@ class Lektion {
         this.list[place].content = content;
         localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
         console.log(`Successfully replaced ${place+1}. Lektion`)
-        console.log("Lol")
     }
     getName(place){
         return this.list[place].name
@@ -45,6 +46,8 @@ class newLektion{
      constructor() {
         this.name;
         this.content = new Array();
+        this.bSprache = "Englisch";
+        this.dSprache = "Deutsch"
     }
     setName(name){
         this.name = name;
