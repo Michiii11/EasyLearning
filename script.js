@@ -56,7 +56,7 @@ function addLektion(type) {
 
     // Table
     temp += `<table>`
-
+    
     temp = getDropdown(temp);
 
     let rowCount = 0;
@@ -137,13 +137,15 @@ function loadLektion(count) {
 
     let lektionName = allLektions.list[count].name;
     let lektionContent = allLektions.list[count].content;
+    let begriff = allLektions.list[count].bSprache;
+    let definition = allLektions.list[count].dSprache;
 
     currentCard = content[collumn][row]
 
     // Content
     temp = ""
     temp += `<div id='lektionOverview'><h2>${lektionName}</h2><div><p onclick='loadKarteikarten()'>Karteikarten</p><p onclick='loadLernen()'>Schreiben</p><p onclick='loadAntworten(${count})'>Antworten</p></div>`
-    temp += "<table id='tableLektion'><tr><th>Begriff</th><th id='englisch' onclick='autoEnglisch()'>Definition</th></tr>"
+    temp += `<table id='tableLektion'><tr><th>${begriff}</th><th id='englisch' onclick='autoEnglisch()'>${definition}</th></tr>`
     for (let i = 0; i < lektionContent.length; i++) {
         temp += `<tr><td class="begriff">${lektionContent[i][0]}</td><td class="definition">${lektionContent[i][1]}</td></tr>`
     }

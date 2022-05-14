@@ -46,7 +46,7 @@ function saveLektion(type) {
     } else{
         let tempLength = document.getElementsByClassName("definitionV").length
         addRow(tempLength-1)
-        allLektions.addNewLektion(newLektion.name, newLektion.content);
+        allLektions.addNewLektion(newLektion.name, newLektion.content, newLektion.bSprache, newLektion.dSprache);
         content = allLektions.list[0].content;
     }
 
@@ -170,7 +170,7 @@ function getDropdown(text){
 
     text += `<tr><th><details><summary>${newLektion.bSprache}</summary>` 
     for(let i = 0; i < temp.length; i++){
-        text += `<p>${temp[i]}</p>`
+        text += `<div onclick="newLanguage('${temp[i]}', 'bSprache')"><input type="checkbox"><label>${temp[i]}</label></div>`
     }
 
     text += `</details></th><th><details><summary>${newLektion.dSprache}</summary>`
@@ -181,11 +181,22 @@ function getDropdown(text){
     }
     temp.splice(temp.indexOf(newLektion.dSprache), 1);
     for(let i = 0; i < temp.length; i++){
-        text += `<p>${temp[i]}</p>`
+        text += `<div onclick="newLanguage('${temp[i]}', 'dSprache')"><input type="checkbox"><label>${temp[i]}</label></div>`
     }
     text += `</details></th></tr>`
 
     return text;
+}
+function newLanguage(language, choice){
+    console.log(language)
+
+    if(choice == "bSprache"){
+        newLektion.bSprache = language;
+    } else{
+        newLektion.dSprache = language;
+    }
+
+    addLektion();
 }
 
 function autoGenerateTable() {

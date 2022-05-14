@@ -308,6 +308,14 @@ nav a div:hover i , nav a div:hover h3{
 summary:hover{
     cursor: pointer;
 }
+details div{
+    font-size: 80%;
+    text-align: left;
+    padding-left: 15vw;
+}
+details div input:hover{
+    cursor: pointer;
+}
 
 /*********Auto Generate Table *********/
 #loadAutoGenerate{
