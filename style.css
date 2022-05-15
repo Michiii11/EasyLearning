@@ -211,6 +211,7 @@ nav a div:hover i , nav a div:hover h3{
     overflow: hidden;
 }
 #addLektion th{
+    width: 50%;
     padding: 1vh 0 1vh 0;
     border-bottom: var(--grey5) 0.1rem solid;
 }

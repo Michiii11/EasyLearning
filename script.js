@@ -62,12 +62,12 @@ function addLektion(type) {
     let rowCount = 0;
     if (newLektion.content) {
         for (let i = 0; i < newLektion.content.length; i++) {
-            temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value="${newLektion.content[i][0]}"></td><td class="definition"><input class="definitionV" onclick="this.select()" value="${newLektion.content[i][1]}"></td><td><i onclick="removeRow(${rowCount})" id="trash${rowCount}" class="fa-solid fa-trash"></i></td></tr>`
+            temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value="${newLektion.content[i][0]}" placeholder="Begriff"></td><td class="definition"><input class="definitionV" onclick="this.select()" value="${newLektion.content[i][1]}"  placeholder="Definition"></td><td><i onclick="removeRow(${rowCount})" id="trash${rowCount}" class="fa-solid fa-trash"></i></td></tr>`
             rowCount++;
         }
     }
 
-    temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value=""></td><td class="definition"><input id="lastTab" class="definitionV" onclick="this.select()" value=""></td><td><i onclick="removeRow(${rowCount})" id="trash${rowCount}" class="fa-solid fa-trash"></i></td></tr>`
+    temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value="" placeholder="Begriff"></td><td class="definition"><input id="lastTab" class="definitionV" onclick="this.select()" value="" placeholder="Definition"></td><td><i onclick="removeRow(${rowCount})" id="trash${rowCount}" class="fa-solid fa-trash"></i></td></tr>`
 
     temp += `<tr><td colspan="2" id="lastRow" onclick="addRow(${rowCount})"><i class="fa-solid fa-plus"></td></tr>`
     temp += "</table>";
@@ -134,6 +134,7 @@ function loadLektion(count) {
     wrongAnswers = new Array();
     tempContent = content;
     tempCount = count;
+    currentWord = 0;
 
     let lektionName = allLektions.list[count].name;
     let lektionContent = allLektions.list[count].content;
