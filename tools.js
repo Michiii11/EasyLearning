@@ -1,31 +1,30 @@
 // Tools for addLektion
-function addRow(row) {
-    let begriff, definition
+function addRow(type) {
+    let name = newLektion.name;
+    newLektion.clear();
+    newLektion.name = name;
 
-    if(document.getElementsByClassName("begriffV")[row]){
-        begriff = document.getElementsByClassName("begriffV")[row].value;
-    } else{
-        begriff = ""
-    }
+    for(let i = 0; i < document.getElementsByClassName("begriffV").length; i++){
+        let begriff = document.getElementsByClassName("begriffV")[i].value;
+        let definition = document.getElementsByClassName("definitionV")[i].value;
+        newLektion.setNewRow([begriff, definition]);
+    }    
 
-    if(document.getElementsByClassName("definitionV")[row]){
-        definition = document.getElementsByClassName("definitionV")[row].value;
-    } else{
-        definition = ""
-    }
-    
-    newLektion.setNewRow([begriff, definition]);
-
-    addLektion();
+    addLektion(type);
 
     // Fokus auf die nächste Spalte
     let begriffV = document.querySelectorAll(".definitionV");
     begriffV[newLektion.content.length - 1].focus();
 }
 
-function removeRow(row) {
+function removeRow(row, type) {
     newLektion.removeRow(row);  
-    addLektion();
+
+    if(type != null){
+        allLektions.replaceLektion(type, newLektion.name, newLektion.content)
+        editLektion(type);
+    }
+    addLektion(type);
 }
 
 function saveLektion(type) {
@@ -45,7 +44,7 @@ function saveLektion(type) {
         allLektions.replaceLektion(type, newLektion.name, newLektion.content)
     } else{
         let tempLength = document.getElementsByClassName("definitionV").length
-        addRow(tempLength-1)
+        addRow()
         allLektions.addNewLektion(newLektion.name, newLektion.content, newLektion.bSprache, newLektion.dSprache);
         content = allLektions.list[0].content;
     }
@@ -161,7 +160,7 @@ function loadAutoGenerate() {
 }
 
 let languages = ["Deutsch", "Englisch", "Spanisch", "Französisch"]
-function getDropdown(text){
+function getDropdown(text, type){
     let temp = new Array(languages.length);
     for(let i = 0; i < languages.length; i++){
         temp[i] = languages[i]
@@ -181,14 +180,13 @@ function getDropdown(text){
     }
     temp.splice(temp.indexOf(newLektion.dSprache), 1);
     for(let i = 0; i < temp.length; i++){
-        text += `<div onclick="newLanguage('${temp[i]}', 'dSprache')"><input type="checkbox"><label>${temp[i]}</label></div>`
+        text += `<div onclick="newLanguage('${temp[i]}', 'dSprache', ${type})"><input type="checkbox"><label>${temp[i]}</label></div>`
     }
     text += `</details></th></tr>`
 
     return text;
 }
-function newLanguage(language, choice){
-    console.log(language)
+function newLanguage(language, choice, type){
 
     if(choice == "bSprache"){
         newLektion.bSprache = language;
@@ -196,7 +194,7 @@ function newLanguage(language, choice){
         newLektion.dSprache = language;
     }
 
-    addLektion();
+    addLektion(type);
 }
 
 function autoGenerateTable() {

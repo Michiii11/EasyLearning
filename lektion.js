@@ -12,20 +12,17 @@ class Lektion {
 
         this.list.push(newLektion);
         localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
-        console.log(`Successfully added new Lektion`)
         loadDashboard();
     }
     removeLektion(place){
         this.list.splice(place, 1);
         localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
-        console.log(`Successfully cleared ${place+1}. Lektion`)
         loadDashboard();
     }
     replaceLektion(place, name, content){
         this.list[place].name = name;
         this.list[place].content = content;
         localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
-        console.log(`Successfully replaced ${place+1}. Lektion`)
     }
     getName(place){
         return this.list[place].name
