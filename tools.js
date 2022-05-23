@@ -51,6 +51,15 @@ function saveLektion(type) {
 
     loadDashboard();
 }
+function saveOnlineLektion(count){
+    let name = allLektions.OnlineList[count].name;
+    let content = allLektions.OnlineList[count].content;
+    let bSprache = allLektions.OnlineList[count].bSprache;
+    let dSprache = allLektions.OnlineList[count].dSprache;
+
+    allLektions.addNewLektion(name, content, bSprache, dSprache);
+    loadDashboard();
+}
 
 // Tools for Tasks
 function getAudio(language, word){
@@ -85,12 +94,6 @@ function playSound(){
         document.getElementById("sound").pause();
     }
 }
-
-
-
-
-
-
 
 
 function makeLektion(elem) {

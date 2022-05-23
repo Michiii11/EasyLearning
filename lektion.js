@@ -1,6 +1,7 @@
 class Lektion {
     constructor() {
         this.list = new Array();
+        this.OnlineList = new Array();
     }
     addNewLektion(n, c, b, d) {
         let newLektion = {
@@ -13,6 +14,16 @@ class Lektion {
         this.list.push(newLektion);
         localStorage["lektionSaves"] = JSON.stringify(allLektions.list);
         loadDashboard();
+    }
+    addOnlineLektion(n, c, b, d){
+        let newLektion = {
+            name: n,
+            content: c,
+            bSprache: b,
+            dSprache: d
+        }
+
+        this.OnlineList.push(newLektion);
     }
     removeLektion(place){
         this.list.splice(place, 1);
@@ -72,3 +83,11 @@ if (!localStorage["lektionSaves"]) {
 }
 newLektion = new newLektion();
 console.log(allLektions.list);
+
+
+let lektion1 = [["Hola", "Hallo"], ["Me llamo", "ich heiße"], ["Soy de...", "Ich komme aus..."], ["Y", "Und"], 
+                ["yo", "ich"], ["Tú", "du"], ["Él", "Er"], ["Ella", "Sie"], ["Usted", "Es"], ["Nostros", "Wir"], 
+                ["Vosotros", "Ihr"], ["Ellos", "Sie"], ["Buenos dias", "Guten Morgen"], ["Buenos tardes", "Guten Abend"], 
+                ["para mi", "für mich"], ["Que tal", "Wie gehts"], ["Soy...", "Ich bin..."], ["Como te llamas", "Wie heißt du"],
+                ["Dónde...", "Wo..."], ["De dónde erstes", "Woher kommst du"], ["sí", "ja"], ["no", "nein"]]
+allLektions.addOnlineLektion('Unidad 1', lektion1, 'Spanisch', 'Deutsch')

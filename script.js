@@ -56,24 +56,24 @@ function addLektion(type) {
 
     // Table
     temp += `<table>`
-    
+
     temp = getDropdown(temp, type);
 
     let rowCount = 0;
     if (newLektion.content) {
         for (let i = 0; i < newLektion.content.length; i++) {
-            if(type != null){
+            if (type != null) {
                 temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value="${newLektion.content[i][0]}" placeholder="Begriff"></td><td class="definition"><input class="definitionV" onclick="this.select()" value="${newLektion.content[i][1]}"  placeholder="Definition"></td><td><i onclick="removeRow(${rowCount},${type})" id="trash${rowCount}" class="fa-solid fa-trash"></i></td></tr>`
-            } else{
+            } else {
                 temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value="${newLektion.content[i][0]}" placeholder="Begriff"></td><td class="definition"><input class="definitionV" onclick="this.select()" value="${newLektion.content[i][1]}"  placeholder="Definition"></td><td><i onclick="removeRow(${rowCount})" id="trash${rowCount}" class="fa-solid fa-trash"></i></td></tr>`
             }
             rowCount++;
         }
     }
 
-    if(type != null){
+    if (type != null) {
         temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value="" placeholder="Begriff"></td><td class="definition"><input id="lastTab" class="definitionV" onclick="this.select()" value="" placeholder="Definition"></td><td><i onclick="removeRow(${rowCount},${type})" id="trash${rowCount}" class="fa-solid fa-trash"></i></td></tr>`
-    } else{
+    } else {
         temp += `<tr><td class="begriff"><input class="begriffV" onclick="this.select()" value="" placeholder="Begriff"></td><td class="definition"><input id="lastTab" class="definitionV" onclick="this.select()" value="" placeholder="Definition"></td><td><i onclick="removeRow(${rowCount})" id="trash${rowCount}" class="fa-solid fa-trash"></i></td></tr>`
     }
 
@@ -101,7 +101,7 @@ function addLektion(type) {
     });
 }
 // Load Edit Lektion
-function editLektion(count) {    
+function editLektion(count) {
     newLektion.clear();
     newLektion.setName(allLektions.list[count].name)
 
@@ -121,13 +121,22 @@ function searchLektion() {
                 <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>`
     document.getElementById('nav').innerHTML = nav;
 
-    temp = ""
+    // Preview Field
+    temp = "";
+    temp += `<div id="previewField">`
+    for (let i = 0; i < allLektions.OnlineList.length; i++) {
+        if (allLektions.OnlineList[i] != null) {
+            temp += `<div class="preview" onclick="loadLektion(${i}, 'preview')"><h1>${allLektions.OnlineList[i].name}</h1><p>${allLektions.OnlineList[i].content.length} Begriffe</p></div>`
+        }
+    }
+    temp += `</div>`
+
 
     document.getElementById('content').innerHTML = temp;
 }
 
 // Load Lektion Menu
-function loadLektion(count) {
+function loadLektion(count, type) {
     // Navigation
     let nav = `<a onclick="loadDashboard()" id="header"><div><img src="${img1}"></div></a>
                   <a onclick="loadDashboard()"><div><i id="active" class="fa-solid fa-house"></i></div></a>
@@ -149,17 +158,42 @@ function loadLektion(count) {
     let begriff = allLektions.list[count].bSprache;
     let definition = allLektions.list[count].dSprache;
 
-    currentCard = content[collumn][row]
+    currentCard = content[collumn][row]    
+    
+    if (type == "preview") {
+        content = allLektions.OnlineList[count].content
+        list = random(content);
+
+        lektionName = allLektions.OnlineList[count].name;
+        lektionContent = allLektions.OnlineList[count].content;
+        begriff = allLektions.OnlineList[count].bSprache;
+        definition = allLektions.OnlineList[count].dSprache;
+
+        currentCard = content[collumn][row]
+    }
 
     // Content
     temp = ""
-    temp += `<div id='lektionOverview'><h2>${lektionName}</h2><div><p onclick='loadKarteikarten()'>Karteikarten</p><p onclick='loadLernen()'>Schreiben</p><p onclick='loadAntworten(${count})'>Antworten</p></div>`
+    temp += `<div id='lektionOverview'><h2>${lektionName}</h2>`
+    if(type == "preview"){
+        temp += `<div><p onclick='saveOnlineLektion(${count})'>Speichern</p></div>`
+    }else{
+        temp += `<div><p onclick='loadKarteikarten()'>Karteikarten</p><p onclick='loadLernen()'>Schreiben</p><p onclick='loadAntworten(${count})'>Antworten</p></div>`
+    }
+
     temp += `<table id='tableLektion'><tr><th>${begriff}</th><th id='englisch' onclick='autoEnglisch()'>${definition}</th></tr>`
     for (let i = 0; i < lektionContent.length; i++) {
         temp += `<tr><td class="begriff">${lektionContent[i][0]}</td><td class="definition">${lektionContent[i][1]}</td></tr>`
     }
+
     temp += "</table>"
-    temp += `<section><p onclick='allLektions.removeLektion(${count})'>Entfernen</p><p onclick='editLektion(${count});addLektion(${count});'>Bearbeiten</p></section></div>`
+    if(type != "preview"){
+        temp += `<section><p onclick='allLektions.removeLektion(${count})'>Entfernen</p><p onclick='editLektion(${count});addLektion(${count});'>Bearbeiten</p></section></div>`
+    }
+    else{
+        temp += `<section><p onclick='searchLektion()'>Zurück</p></section>`
+    }
+
 
     document.getElementById('content').innerHTML = temp;
 }
