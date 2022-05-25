@@ -18,8 +18,8 @@ function addRow(type) {
 }
 
 function removeRow(row, type) {
-    newLektion.removeRow(row);  
-
+    newLektion.removeRow(row);
+ 
     if(type != null){
         allLektions.replaceLektion(type, newLektion.name, newLektion.content)
         editLektion(type);
@@ -46,9 +46,9 @@ function saveLektion(type) {
         let tempLength = document.getElementsByClassName("definitionV").length
         addRow()
         allLektions.addNewLektion(newLektion.name, newLektion.content, newLektion.bSprache, newLektion.dSprache);
-        content = allLektions.list[0].content;
     }
 
+    content = allLektions.list[0].content;
     loadDashboard();
 }
 function saveOnlineLektion(count){

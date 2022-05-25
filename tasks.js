@@ -1,9 +1,11 @@
-let content = allLektions.list[0].content;
+if(content){
+    content = allLektions.list[0].content;
+}
 
 // Task - Karteikarten
-let row = 0;
-let collumn = 0;
-let currentCard = content[collumn][row]
+row = 0;
+collumn = 0;
+currentCard = content[collumn][row]
 
 function loadKarteikarten(count) {
     let playground = "";
@@ -37,15 +39,15 @@ function skip(sum) {
 }
 
 // Task - Lernen
-let currentWord = 0;
-let playground = "";
+currentWord = 0;
+playground = "";
 
-let list = random(content);
-let wrongAnswers = new Array();
-let tempCount = 0;
-let wrongCount = 0;
-let tempContent = content;
-var audio;
+list = random(content);
+wrongAnswers = new Array();
+tempCount = 0;
+wrongCount = 0;
+tempContent = content;
+audio;
 
 function loadLernen() {
     let tempWord = tempContent[[list[currentWord]]][0].toString().toLowerCase()

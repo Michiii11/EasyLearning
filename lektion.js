@@ -85,9 +85,12 @@ newLektion = new newLektion();
 console.log(allLektions.list);
 
 
-let lektion1 = [["Hola", "Hallo"], ["Me llamo", "ich heiße"], ["Soy de...", "Ich komme aus..."], ["Y", "Und"], 
-                ["yo", "ich"], ["Tú", "du"], ["Él", "Er"], ["Ella", "Sie"], ["Usted", "Es"], ["Nostros", "Wir"], 
-                ["Vosotros", "Ihr"], ["Ellos", "Sie"], ["Buenos dias", "Guten Morgen"], ["Buenos tardes", "Guten Abend"], 
-                ["para mi", "für mich"], ["Que tal", "Wie gehts"], ["Soy...", "Ich bin..."], ["Como te llamas", "Wie heißt du"],
-                ["Dónde...", "Wo..."], ["De dónde erstes", "Woher kommst du"], ["sí", "ja"], ["no", "nein"]]
+let lektion1 = []
+allLektions.addOnlineLektion('Unit 1 More 1', lektion1, 'Englisch', 'Deutsch')
+allLektions.addOnlineLektion('Unit 2 More 1', lektion1, 'Englisch', 'Deutsch')
+allLektions.addOnlineLektion('Unit 3 More 1', lektion1, 'Englisch', 'Deutsch')
+
+let lektion2 = []
 allLektions.addOnlineLektion('Unidad 1', lektion1, 'Spanisch', 'Deutsch')
+allLektions.addOnlineLektion('Unidad 2', lektion1, 'Spanisch', 'Deutsch')
+allLektions.addOnlineLektion('Unidad 3', lektion1, 'Spanisch', 'Deutsch')

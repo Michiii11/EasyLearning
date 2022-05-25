@@ -6,6 +6,21 @@ var allLektions;
 var lektionName;
 var lektionContent;
 
+let content;
+let currentWord = 0;
+let playground = "";
+
+let row = 0;
+let collumn = 0;
+let currentCard
+
+let list;
+let wrongAnswers;
+let tempCount;
+let wrongCount;
+let tempContent;
+var audio;
+
 loadDashboard();
 
 // Load Dashboard
@@ -145,31 +160,29 @@ function loadLektion(count, type) {
                   <a onclick="changeMode()"><div id="switch"><i class="fa-solid fa-toggle-on"></i></div></a>`
     document.getElementById('nav').innerHTML = nav;
 
+
+    let lektionName, lektionContent, begriff, definition;
+
     content = allLektions.list[count].content
-    list = random(content);
 
     wrongAnswers = new Array();
     tempContent = content;
     tempCount = count;
     currentWord = 0;
 
-    let lektionName = allLektions.list[count].name;
-    let lektionContent = allLektions.list[count].content;
-    let begriff = allLektions.list[count].bSprache;
-    let definition = allLektions.list[count].dSprache;
-
-    currentCard = content[collumn][row]    
+    list = random(content);
+    currentCard = content[collumn][row]
     
     if (type == "preview") {
-        content = allLektions.OnlineList[count].content
-        list = random(content);
-
         lektionName = allLektions.OnlineList[count].name;
         lektionContent = allLektions.OnlineList[count].content;
         begriff = allLektions.OnlineList[count].bSprache;
         definition = allLektions.OnlineList[count].dSprache;
-
-        currentCard = content[collumn][row]
+    } else{
+        lektionName = allLektions.list[count].name;
+        lektionContent = allLektions.list[count].content;
+        begriff = allLektions.list[count].bSprache;
+        definition = allLektions.list[count].dSprache;
     }
 
     // Content
