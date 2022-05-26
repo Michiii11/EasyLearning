@@ -5,6 +5,7 @@ var mode = "BLACK"
 var allLektions;
 var lektionName;
 var lektionContent;
+var lektionSprache;
 
 let content;
 let currentWord = 0;
@@ -162,8 +163,22 @@ function loadLektion(count, type) {
 
 
     let lektionName, lektionContent, begriff, definition;
-
-    content = allLektions.list[count].content
+    
+    if (type == "preview") {
+        content = allLektions.OnlineList[count].content
+        lektionName = allLektions.OnlineList[count].name;
+        lektionContent = allLektions.OnlineList[count].content;
+        lektionSprache = allLektions.OnlineList[count].bSprache;
+        begriff = allLektions.OnlineList[count].bSprache;
+        definition = allLektions.OnlineList[count].dSprache;
+    } else{
+        content = allLektions.list[count].content
+        lektionName = allLektions.list[count].name;
+        lektionContent = allLektions.list[count].content;
+        lektionSprache = allLektions.list[count].bSprache;
+        begriff = allLektions.list[count].bSprache;
+        definition = allLektions.list[count].dSprache;
+    }
 
     wrongAnswers = new Array();
     tempContent = content;
@@ -172,18 +187,6 @@ function loadLektion(count, type) {
 
     list = random(content);
     currentCard = content[collumn][row]
-    
-    if (type == "preview") {
-        lektionName = allLektions.OnlineList[count].name;
-        lektionContent = allLektions.OnlineList[count].content;
-        begriff = allLektions.OnlineList[count].bSprache;
-        definition = allLektions.OnlineList[count].dSprache;
-    } else{
-        lektionName = allLektions.list[count].name;
-        lektionContent = allLektions.list[count].content;
-        begriff = allLektions.list[count].bSprache;
-        definition = allLektions.list[count].dSprache;
-    }
 
     // Content
     temp = ""

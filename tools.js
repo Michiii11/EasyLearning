@@ -63,6 +63,15 @@ function saveOnlineLektion(count){
 
 // Tools for Tasks
 function getAudio(language, word){
+    let short
+    switch(language){
+        case "Englisch": short = "en";
+        case "Deutsch": short = "de";
+        case "Spanisch": short = "es";
+        case "Französisch": short = "fr";
+        break;
+    }
+
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -81,7 +90,7 @@ function getAudio(language, word){
             document.getElementById("playbutton-parent").innerHTML = `<div onclick="playSound()" id="playbutton-child"><i class="fa-solid fa-play"></i></div>`
         };
     }
-    xhttp.open('GET', `https://api.dictionaryapi.dev/api/v2/entries/${language}/${word}`, true);
+    xhttp.open('GET', `https://api.dictionaryapi.dev/api/v2/entries/${short}/${word}`, true);
     xhttp.send();
 }
 function playSound(){

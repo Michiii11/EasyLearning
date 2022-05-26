@@ -51,7 +51,7 @@ audio;
 
 function loadLernen() {
     let tempWord = tempContent[[list[currentWord]]][0].toString().toLowerCase()
-    getAudio("en", tempWord);
+    getAudio(lektionSprache, tempWord);
 
     // Erste Eingabe
     if (playground == "") {

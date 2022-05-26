@@ -90,7 +90,8 @@ allLektions.addOnlineLektion('Unit 1 More 1', lektion1, 'Englisch', 'Deutsch')
 allLektions.addOnlineLektion('Unit 2 More 1', lektion1, 'Englisch', 'Deutsch')
 allLektions.addOnlineLektion('Unit 3 More 1', lektion1, 'Englisch', 'Deutsch')
 
-let lektion2 = []
-allLektions.addOnlineLektion('Unidad 1', lektion1, 'Spanisch', 'Deutsch')
-allLektions.addOnlineLektion('Unidad 2', lektion1, 'Spanisch', 'Deutsch')
+let unidad1 = [["uno", "1"], ["dos", "2"], ["tres", "3"], ["cuatro", "4"], ["cinco", "5"], ["seis", "6"], ["siete", "7"], ["ocho", "8"], ["nueve", "9"], ["diez", "10"]]
+let unidad2 = [["la nube", "Wolke"], ["el caballo", "Pferd"], ["el restaurante", "Restaurant"], ["la mujer", "Frau"], ["el nino", "Junge"], ["la nina", "Mädchen"], ["el hombre", "Mann"], ["los turistas", "Touristen"], ["Veo", "Ich sehe"], ["la estatua", "Statue"], ["el coche", "Auto"], ["Nos puede hacer una foto, por favor?", "Können Sie bitte ein Bild von uns machen?"], ["la bandera", "Flagge"], ["el techo", "Dach"], ["el relieve", "Relief"], ["las columnas", "Säulen"], ["el museo", "Museum"], ["la escultura", "Skulptur"], ["el pavo real", "Pfau"], ["la entrada", "Eingang"], ["la farola", "Laterne"], ["el árbol", "Baum"], ["la pintura", "Gemälde"], ["Disculpe, senor!", "Entschuldigen Sie!"], ["Donde están los servicios?", "Wo sind die Toiletten?"], ["la fuente", "Springbrunnen"], ["el parque", "Park"], ["bonitio", "schön"], ["feo", "hässlich"], ["grande", "groß"], ["pequeno", "klein"], ["amable", "freundlich"], ["alarmante", "beängstigend"], ["viejo", "alt"], ["moderno", "modern"], ["la postal", "Postkarte"], ["la libreta", "Notizbuch"], ["el lápiz", "Bleistift"], ["el bolígrafo", "Kugelschreiber"], ["el bolso", "Tasche"], ["los pendientes", "Ohrringe"], ["el llavero", "Schlüsselanhänger"], ["el libro", "Buch"], ["la camiseta", "T-Shirt"]]
+allLektions.addOnlineLektion('Unidad 1', unidad1, 'Spanisch', 'Deutsch')
+allLektions.addOnlineLektion('Unidad 2', unidad2, 'Spanisch', 'Deutsch')
 allLektions.addOnlineLektion('Unidad 3', lektion1, 'Spanisch', 'Deutsch')
