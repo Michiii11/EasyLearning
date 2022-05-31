@@ -464,10 +464,15 @@ details div input:hover{
 
     justify-content: center;
     align-items: center;
+    
 }
 #card:hover{
     font-size: 5.5rem;
     cursor: pointer;
+}
+
+#card a{
+    transition: transform 0.5s;
 }
 
 #achievmentA{

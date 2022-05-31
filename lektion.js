@@ -84,14 +84,15 @@ if (!localStorage["lektionSaves"]) {
 newLektion = new newLektion();
 console.log(allLektions.list);
 
-
-let lektion1 = []
-allLektions.addOnlineLektion('Unit 1 More 1', lektion1, 'Englisch', 'Deutsch')
-allLektions.addOnlineLektion('Unit 2 More 1', lektion1, 'Englisch', 'Deutsch')
-allLektions.addOnlineLektion('Unit 3 More 1', lektion1, 'Englisch', 'Deutsch')
-
-let unidad1 = [["uno", "1"], ["dos", "2"], ["tres", "3"], ["cuatro", "4"], ["cinco", "5"], ["seis", "6"], ["siete", "7"], ["ocho", "8"], ["nueve", "9"], ["diez", "10"]]
-let unidad2 = [["la nube", "Wolke"], ["el caballo", "Pferd"], ["el restaurante", "Restaurant"], ["la mujer", "Frau"], ["el nino", "Junge"], ["la nina", "Mädchen"], ["el hombre", "Mann"], ["los turistas", "Touristen"], ["Veo", "Ich sehe"], ["la estatua", "Statue"], ["el coche", "Auto"], ["Nos puede hacer una foto, por favor?", "Können Sie bitte ein Bild von uns machen?"], ["la bandera", "Flagge"], ["el techo", "Dach"], ["el relieve", "Relief"], ["las columnas", "Säulen"], ["el museo", "Museum"], ["la escultura", "Skulptur"], ["el pavo real", "Pfau"], ["la entrada", "Eingang"], ["la farola", "Laterne"], ["el árbol", "Baum"], ["la pintura", "Gemälde"], ["Disculpe, senor!", "Entschuldigen Sie!"], ["Donde están los servicios?", "Wo sind die Toiletten?"], ["la fuente", "Springbrunnen"], ["el parque", "Park"], ["bonitio", "schön"], ["feo", "hässlich"], ["grande", "groß"], ["pequeno", "klein"], ["amable", "freundlich"], ["alarmante", "beängstigend"], ["viejo", "alt"], ["moderno", "modern"], ["la postal", "Postkarte"], ["la libreta", "Notizbuch"], ["el lápiz", "Bleistift"], ["el bolígrafo", "Kugelschreiber"], ["el bolso", "Tasche"], ["los pendientes", "Ohrringe"], ["el llavero", "Schlüsselanhänger"], ["el libro", "Buch"], ["la camiseta", "T-Shirt"]]
-allLektions.addOnlineLektion('Unidad 1', unidad1, 'Spanisch', 'Deutsch')
-allLektions.addOnlineLektion('Unidad 2', unidad2, 'Spanisch', 'Deutsch')
-allLektions.addOnlineLektion('Unidad 3', lektion1, 'Spanisch', 'Deutsch')
+let animals = [["Chicken", "Huhn"], ["Pig", "Schwein"], ["Cow", "Kuh"], ["Elephant", "Elefant"], ["Giraffe", "Giraffe"], ["Chipmunks", "Streifenhörnchen"], ["Whale", "Wal"], ["Dog", "Hund"], ["Cat", "Katze"], ["Monkey", "Affe"]]
+let family = [["Dad", "Vater"], ["Mum", "Mutter"], ["Brother", "Bruder"], ["Sister", "Schwester"], ["Siblings", "Geschwister"], ["Grandfather", "Opa"], ["Grandmother", "Oma"], ["Aunt", "Tante"], ["Uncle", "Onkel"], ["Godfather", "Taufpate"]]
+let restaurant = [["Plate", "Teller"], ["Fork", "Gabel"], ["Knife", "Messer"], ["Spoon", "Löffel"], ["Wine", "Wein"], ["Starter", "Vorspeise"], ["Main course", "Hauptspeise"], ["Desert", "Nachspeise"], ["soup", "Suppe"], ["salad", "Salat"]]
+let holidays = [["beach", "Strand"], ["Sunshine", "Sonnenstrahlen"], ["Sun glasses", "Sonnenbrille"], ["Sun cream", "Sonnencreme"], ["Snorkel", "Schnorchel"], ["Flippers", "Flossen"], ["Camera", "Kamera"], ["Backpack", "Rucksack"], ["Map", "Karte"], ["Camp fire", "Lagerfeuer"]]
+let tools = [["Scissors", "Schere"], ["File", "Feile"], ["Cordless drill", "Bohrmaschine"], ["Screwdriver", "Schraubendreher"], ["Chainsaw", "Kettensäge"], ["Screw", "Schraube"], ["Ladder", "Leiter"], ["Sandpaper", "Schleifpapier"], ["Measuring tape", "Messband"], ["Ruler", "Lineal"]]
+let sports = [["Run", "Laufen"], ["Jump", "Springen"], ["Pass", "Passen"], ["Throw", "Werfen"], ["Alpine skiing", "Ski fahren"], ["Goal", "Tor"], ["Football", "Fußball"], ["Table-tennis", "Tischtennis"], ["Net", "Netz"], ["Racket", "Schläger"]]
+allLektions.addOnlineLektion('Animals', animals, 'Englisch', 'Deutsch')
+allLektions.addOnlineLektion('Family', family, 'Englisch', 'Deutsch')
+allLektions.addOnlineLektion('Restaurant', restaurant, 'Englisch', 'Deutsch')
+allLektions.addOnlineLektion('Holidays', holidays, 'Englisch', 'Deutsch')
+allLektions.addOnlineLektion('Tools', tools, 'Englisch', 'Deutsch')
+allLektions.addOnlineLektion('Sport', sports, 'Englisch', 'Deutsch') 

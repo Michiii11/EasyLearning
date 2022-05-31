@@ -7,15 +7,30 @@ row = 0;
 collumn = 0;
 currentCard = content[collumn][row]
 
-function loadKarteikarten(count) {
-    let playground = "";
-    playground += `<div id="playground"><i onclick="skip(-1)" class="fa-solid fa-angle-left"></i>`
-    playground += `<div id='card' onclick='swap()'><a>${currentCard}</a></div>`
-    playground += `<i onclick="skip(1)" class="fa-solid fa-angle-right"></i></div>`
-    playground += `<div id="achievment"><a>Fortschritt: ${collumn+1}/${content.length}</a></div>`
-    playground += `<button id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</button>`
+function loadKarteikarten(flipAn) {
+    let tout = 1
+    if(flipAn){
+        document.querySelector('#card').style = "transform: scaleY(-1)"
+    }
+    else if(document.getElementById("content").querySelector("playground")){
+        document.querySelector('#card').style = "transform: translateX(-100%)"
+        tout = 2000
+    }
 
-    document.getElementById("content").innerHTML = playground;
+    setTimeout(function(){
+        let playground = "";
+        playground += `<div id="playground"><i onclick="skip(-1)" class="fa-solid fa-angle-left"></i>`
+        playground += `<div id='card' onclick='swap()' style="transform: ${flipAn == true ? 'scaleY(-1);><a' : 'translateX(100%)'}">${currentCard}</a></div>`
+        playground += `<i onclick="skip(1)" class="fa-solid fa-angle-right"></i></div>`
+        playground += `<div id="achievment"><a>Fortschritt: ${collumn+1}/${content.length}</a></div>`
+        playground += `<button id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</button>`
+
+        document.getElementById("content").innerHTML = playground;
+    },tout)
+
+    setTimeout(function(){
+        document.querySelector('#card').style = "transform: scaleY(1) translateX(0%)"
+    },10 + tout)
 }
 
 function swap() {
@@ -25,7 +40,7 @@ function swap() {
         row = 0;
     }
     currentCard = content[collumn][row]
-    loadKarteikarten();
+    loadKarteikarten(true);
 }
 
 function skip(sum) {
