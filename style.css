@@ -40,6 +40,7 @@ body {
     color: var(--grey5);
     transition: all 0.2s ease;
 }
+
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;
@@ -51,7 +52,6 @@ body {
 		background-position: 0% 50%;
 	}
 }
-
 
 /************* NAV *************/
 nav {
@@ -490,6 +490,7 @@ details div input:hover{
 #achievment a, #achievmentA a{
     font-size: 1.3rem;
     padding: 2vw;
+    user-select: none;
 }
 
 #answer{
@@ -621,4 +622,17 @@ details div input:hover{
 }
 #sound{
     display: none;
+}
+
+
+/********* Responsive *********/
+
+@media screen and (max-width: 600px) {
+    #previewField{
+        grid-template-columns: 1fr 1fr;
+    }
+    .preview{
+        width: 35vw;
+        border-radius: 2vw;
+    }
 }

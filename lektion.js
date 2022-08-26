@@ -84,7 +84,7 @@ if (!localStorage["lektionSaves"]) {
 newLektion = new newLektion();
 console.log(allLektions.list);
 
-let animals = [["Chicken", "Huhn"], ["Pig", "Schwein"], ["Cow", "Kuh"], ["Elephant", "Elefant"], ["Giraffe", "Giraffe"], ["Chipmunks", "Streifenhörnchen"], ["Whale", "Wal"], ["Dog", "Hund"], ["Cat", "Katze"], ["Monkey", "Affe"]]
+let animals = [["Chicken", "Huhn"], ["Pig", "Schwein"], ["Cow", "Kuh"], ["Elephant", "Elefant"], ["Giraffe", "Giraffe"], ["Chipmunk", "Streifenhörnchen"], ["Whale", "Wal"], ["Dog", "Hund"], ["Cat", "Katze"], ["Monkey", "Affe"]]
 let family = [["Dad", "Vater"], ["Mum", "Mutter"], ["Brother", "Bruder"], ["Sister", "Schwester"], ["Siblings", "Geschwister"], ["Grandfather", "Opa"], ["Grandmother", "Oma"], ["Aunt", "Tante"], ["Uncle", "Onkel"], ["Godfather", "Taufpate"]]
 let restaurant = [["Plate", "Teller"], ["Fork", "Gabel"], ["Knife", "Messer"], ["Spoon", "Löffel"], ["Wine", "Wein"], ["Starter", "Vorspeise"], ["Main course", "Hauptspeise"], ["Desert", "Nachspeise"], ["soup", "Suppe"], ["salad", "Salat"]]
 let holidays = [["beach", "Strand"], ["Sunshine", "Sonnenstrahlen"], ["Sun glasses", "Sonnenbrille"], ["Sun cream", "Sonnencreme"], ["Snorkel", "Schnorchel"], ["Flippers", "Flossen"], ["Camera", "Kamera"], ["Backpack", "Rucksack"], ["Map", "Karte"], ["Camp fire", "Lagerfeuer"]]

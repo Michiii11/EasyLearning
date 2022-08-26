@@ -13,12 +13,12 @@ let playground = "";
 
 let row = 0;
 let collumn = 0;
-let currentCard
+let currentCard;
 
 let list;
 let wrongAnswers;
-let tempCount;
-let wrongCount;
+let tempCount = 0;
+let wrongCount = 0;
 let tempContent;
 var audio;
 

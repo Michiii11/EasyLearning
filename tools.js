@@ -88,9 +88,11 @@ function getAudio(language, word){
                 }
             }
             document.getElementById("playbutton-parent").innerHTML = `<div onclick="playSound()" id="playbutton-child"><i class="fa-solid fa-play"></i></div>`
+            let begriffV = document.getElementById('antwort');
+            begriffV.focus();
         };
     }
-    xhttp.open('GET', `https://api.dictionaryapi.dev/api/v2/entries/${short}/${word}`, true);
+    xhttp.open('GET', `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`, true);
     xhttp.send();
 }
 function playSound(){
@@ -279,3 +281,50 @@ function changeMode() {
     localStorage["darkWhiteMode"] = mode;
 }
 if(mode != localStorage["darkWhiteMode"]){changeMode()}
+
+
+
+
+
+
+
+function loadConfetti(){
+    var count = 200;
+    var colors = ['#FF8552', '#F4A100','#F37679'];
+    var defaults = {
+      origin: { y: 0.7 }
+    };
+    
+    blast();
+    
+    function fire(particleRatio, opts) {
+      confetti(Object.assign({}, defaults, opts, {
+        particleCount: Math.floor(count * particleRatio), colors: colors
+      }));
+    }
+    
+    function blast(){
+        fire(0.25, {
+          spread: 26,
+          startVelocity: 55,
+        });
+        fire(0.2, {
+          spread: 60,
+        });
+        fire(0.35, {
+          spread: 100,
+          decay: 0.92,
+          scalar: 0.8
+        });
+        fire(0.1, {
+          spread: 120,
+          startVelocity: 25,
+          decay: 0.90,
+          scalar: 1.2
+        });
+        fire(0.1, {
+          spread: 120,
+          startVelocity: 45,
+        });
+    }
+}

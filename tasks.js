@@ -26,6 +26,7 @@ function loadKarteikarten(flipAn) {
         playground += `<button id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</button>`
 
         document.getElementById("content").innerHTML = playground;
+        playground = "";
     },tout)
 
     setTimeout(function(){
@@ -44,13 +45,28 @@ function swap() {
 }
 
 function skip(sum) {
-    if (collumn + sum >= 0 && collumn + sum < content.length) {
-        collumn = collumn + sum;
-    }
-    row = 0;
-    currentCard = content[collumn][row]
+    if(collumn+sum != content.length && collumn+sum != -1){
+        if (collumn + sum >= 0 && collumn + sum < content.length) {
+            collumn = collumn + sum;
+        }
+        row = 0;
+        currentCard = content[collumn][row]
 
-    loadKarteikarten();
+        loadKarteikarten();
+    } else if(collumn+sum == content.length){
+        playground = `<div id='playground'>`
+        playground += `<div id="answer"><a>Geschafft</a></div>`
+        playground += `</div>`
+        playground += `<button id="replay" onclick="loadKarteikarten()">Neu Starten</button>`
+        playground += `<button id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</button>`
+        document.getElementById("content").innerHTML = playground;
+        playground = "";
+
+        loadConfetti();
+        row = 0;
+        collumn = 0;
+        currentCard = content[collumn][row]
+    }
 }
 
 // Task - Lernen
@@ -73,7 +89,7 @@ function loadLernen() {
         playground += `<div id="playground">`
         playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][1]}</a>`
         playground += `<div id="word"><div id="playbutton-parent"><div onclick="playSound()" id="playbutton-child"><i class="fa-solid fa-play"></i></div></div>`
-        playground += `<input type="text" id="antwort" autofocus onchange="checkLernen()">`
+        playground += `<input type="text" id="antwort" onchange="checkLernen()">`
         playground += `</div>`
         playground += `<div id="achievmentA"><a>Richtig: ${currentWord-wrongAnswers.length}</a><a>Fortschritt: ${currentWord+1}/${tempContent.length}</a><a>Falsch: ${wrongAnswers.length}</a></div>`
         playground += `<button id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</button>`
@@ -83,7 +99,7 @@ function loadLernen() {
         playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][1]}</a>`
         playground += `<a>${tempContent[[list[currentWord]]][0]}</a>`
         playground += `<div id="word"><div id="playbutton-parent"><div onclick="playSound()" id="playbutton-child"><i class="fa-solid fa-play"></i></div></div>`
-        playground += `<input type="text" id="antwort" autofocus onchange="checkLernen()">`
+        playground += `<input type="text" id="antwort" onchange="checkLernen()">`
         playground += `</div>`
         playground += `<div id="achievmentA"><a>Richtig: ${currentWord-wrongAnswers.length}</a><a>Fortschritt: ${currentWord+1}/${tempContent.length}</a><a>Falsch: ${wrongAnswers.length}</a></div>`
         playground += `<button id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</button>`
@@ -105,11 +121,13 @@ function checkLernen() {
                 tempContent = content;
                 list = random(tempContent);
                 playground += `<div id='playground'>`
-                playground += `<div id="answer"><a>Finished</a></div>`
+                playground += `<div id="answer"><a>Geschafft</a></div>`
                 playground += `</div>`
                 playground += `<button id="replay" onclick="loadLernen()">Neu Starten</button>`
                 playground += `<button id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</button>`
                 document.getElementById("content").innerHTML = playground;
+                playground = "";
+                loadConfetti();
             } else {
                 tempContent = wrongAnswers;
                 list = random(tempContent);
@@ -119,7 +137,8 @@ function checkLernen() {
                 playground += `</div>`
                 playground += `<button id="replay" onclick="loadLernen()">Fortfahren</button>`
                 playground += `<button id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</button>`
-                document.getElementById("content").innerHTML = playground;
+                document.getElementById("content").innerHTML = playground; 
+                playground = "";
             }
             wrongAnswers = new Array()
             currentWord = 0;
@@ -140,12 +159,12 @@ function loadAntworten(count) {
     if (playground == "") {
         playground += `<div id="playground">`
         playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][1]}</a>`
-        playground += `<input type="text" id="antwort" autofocus onchange="checkAnswer()">`
+        playground += `<input type="text" id="antwort" onchange="checkAnswer()">`
         playground += `</div>`
     } else {
         playground += `<div id='answer'><a>${tempContent[[list[currentWord]]][1]}</a>`
         playground += `<a>${tempContent[[list[currentWord]]][0]}</a>`
-        playground += `<input type="text" id="antwort" autofocus onchange="checkAnswer()">`
+        playground += `<input type="text" id="antwort" onchange="checkAnswer()">`
         playground += `</div>`
     }
     playground += `<div id="achievmentA"><a>Richtig: ${currentWord-wrongAnswers.length}</a><a>Fortschritt: ${currentWord+1}/${tempContent.length}</a><a>Falsch: ${wrongAnswers.length}</a></div>`
@@ -153,6 +172,8 @@ function loadAntworten(count) {
 
     document.getElementById("content").innerHTML = playground;
     playground = "";
+    let begriffV = document.getElementById('antwort');
+    begriffV.focus();
 }
 
 function checkAnswer() {
@@ -171,6 +192,8 @@ function checkAnswer() {
                 playground += `<button id="replay" onclick="loadAntworten()">Neu Starten</button>`
                 playground += `<button id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</button>`
                 document.getElementById("content").innerHTML = playground;
+                playground = "";
+                loadConfetti();
             } else {
                 tempContent = wrongAnswers;
                 list = random(tempContent);
@@ -181,6 +204,7 @@ function checkAnswer() {
                 playground += `<button id="replay" onclick="loadAntworten()">Fortfahren</button>`
                 playground += `<button id="backToMenu" onclick="loadLektion(${tempCount})">Zurück</button>`
                 document.getElementById("content").innerHTML = playground;
+                playground = "";
             }
             wrongAnswers = new Array()
             currentWord = 0;
