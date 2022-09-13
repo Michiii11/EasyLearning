@@ -99,7 +99,7 @@ function addLektion(type) {
 
 
     // Save
-    temp += "<div id='confirm' onclick='saveLektion()'>Save</div>"
+    temp += `<div id='confirm' onclick='saveLektion(${type})'>Save</div>`
     document.getElementById('content').innerHTML = temp;
 
     // Event Listener
@@ -186,7 +186,9 @@ function loadLektion(count, type) {
     currentWord = 0;
 
     list = random(content);
-    currentCard = content[collumn][row]
+    if(collumn){
+        currentCard = content[collumn][row]
+    }
 
     // Content
     temp = ""

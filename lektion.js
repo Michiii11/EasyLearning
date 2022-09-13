@@ -82,7 +82,6 @@ if (!localStorage["lektionSaves"]) {
     allLektions.setData(JSON.parse(localStorage["lektionSaves"]))
 }
 newLektion = new newLektion();
-console.log(allLektions.list);
 
 let animals = [["Chicken", "Huhn"], ["Pig", "Schwein"], ["Cow", "Kuh"], ["Elephant", "Elefant"], ["Giraffe", "Giraffe"], ["Chipmunk", "Streifenhörnchen"], ["Whale", "Wal"], ["Dog", "Hund"], ["Cat", "Katze"], ["Monkey", "Affe"]]
 let family = [["Dad", "Vater"], ["Mum", "Mutter"], ["Brother", "Bruder"], ["Sister", "Schwester"], ["Siblings", "Geschwister"], ["Grandfather", "Opa"], ["Grandmother", "Oma"], ["Aunt", "Tante"], ["Uncle", "Onkel"], ["Godfather", "Taufpate"]]
