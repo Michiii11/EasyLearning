@@ -1,13 +1,15 @@
 if(content){
     content = allLektions.list[0].content;
+    row = 0;
+    collumn = 0;
 }
 
 // Task - Karteikarten
-row = 0;
-collumn = 0;
-currentCard = content[collumn][row]
+
 
 function loadKarteikarten(flipAn) {
+    currentCard = content[collumn][row]
+
     let tout = 1
     if(flipAn){
         document.querySelector('#card').style = "transform: scaleY(-1)"
