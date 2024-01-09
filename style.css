@@ -41,6 +41,10 @@ body {
     transition: all 0.2s ease;
 }
 
+i {
+    overflow: hidden;
+}
+
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;

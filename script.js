@@ -115,7 +115,12 @@ function addLektion(type) {
             saveLektion(type);
         }
     });
+
+    document.querySelectorAll("input").forEach(input => {
+        input.addEventListener('input', updateRows)
+    })
 }
+
 // Load Edit Lektion
 function editLektion(count) {
     newLektion.clear();

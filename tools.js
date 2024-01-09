@@ -1,20 +1,31 @@
-// Tools for addLektion
-function addRow(type) {
+function updateRows(isAdd) {
     let name = newLektion.name;
     newLektion.clear();
     newLektion.name = name;
 
     for(let i = 0; i < document.getElementsByClassName("begriffV").length; i++){
-        let begriff = document.getElementsByClassName("begriffV")[i].value;
-        let definition = document.getElementsByClassName("definitionV")[i].value;
-        newLektion.setNewRow([begriff, definition]);
+        let begriff = document.getElementsByClassName("begriffV")[i].value
+        let definition = document.getElementsByClassName("definitionV")[i].value
+
+        if(isAdd){
+            newLektion.setNewRow([begriff, definition]);
+        } else if(begriff != "" || definition != ""){
+            newLektion.setNewRow([begriff, definition]);
+        }
     }
+}
+
+// Tools for addLektion
+function addRow(type) {
+    updateRows(true);
 
     addLektion(type);
 
     // Fokus auf die nächste Spalte
     let begriffV = document.querySelectorAll(".definitionV");
-    begriffV[newLektion.content.length - 1].focus();
+    if(begriffV.length >= newLektion.content.length - 1 && newLektion.content.length > 0){
+        begriffV[newLektion.content.length - 1].focus();
+    }
 }
 
 function removeRow(row, type) {
@@ -25,6 +36,7 @@ function removeRow(row, type) {
         allLektions.replaceLektion(type, newLektion.name, newLektion.content)
         editLektion(type);
     }
+
     addLektion(type);
 }
 
@@ -39,17 +51,13 @@ function saveLektion(type) {
         newLektion.setName(document.getElementById("lektionName").value)
     
         for(let i = 0; i < begriff.length; i++){
-            if(i != begriff.length-1){
-                newLektion.setNewRow([begriff[i].value, definition[i].value])
-            } else if(begriff[i].value != "" && definition[i].value != ""){
+            if(begriff[i].value != "" || definition[i].value != ""){
                 newLektion.setNewRow([begriff[i].value, definition[i].value])
             }
         }
 
         allLektions.replaceLektion(type, newLektion.name, newLektion.content)
     } else{
-        let tempLength = document.getElementsByClassName("definitionV").length
-        addRow()
         allLektions.addNewLektion(newLektion.name, newLektion.content, newLektion.bSprache, newLektion.dSprache);
     }
 
@@ -242,7 +250,6 @@ function getDropdown(text, type){
     return text;
 }
 function newLanguage(language, choice, type){
-
     if(choice == "bSprache"){
         newLektion.bSprache = language;
     } else{
@@ -254,13 +261,15 @@ function newLanguage(language, choice, type){
 
 // Function to get a Random ordered List of Numbers
 function random(temp) {
-    let list = new Array(temp.length);
-    for (let i = 0; i < temp.length; i++) {
-        list[i] = i;
-    }
-    list = list.sort(() => Math.random() - 0.5)
+    if(temp){
+        let list = new Array(temp.length);
+        for (let i = 0; i < temp.length; i++) {
+            list[i] = i;
+        }
+        list = list.sort(() => Math.random() - 0.5)
 
-    return list;
+        return list;
+    }
 }
 
 // Function to Switch between Dark and White Mode

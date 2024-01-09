@@ -179,7 +179,7 @@ function loadAntworten(count) {
 }
 
 function checkAnswer() {
-    if (tempContent[[list[currentWord]]][0].toString().toLowerCase() == document.getElementById("antwort").value.toString().toLowerCase()) {
+    if (tempContent[[list[currentWord]]][0].toString().replaceAll(" ", "").toLowerCase() == document.getElementById("antwort").value.toString().replaceAll(" ", "").toLowerCase()) {
         document.getElementById("content").innerHTML = "";
         if (currentWord + 1 < tempContent.length) {
             currentWord++;
